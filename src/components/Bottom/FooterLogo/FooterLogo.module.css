@@ -1,0 +1,9 @@
+.general {
+    width: 141px;
+    height: 115px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-shrink: 0;
+    background-image: url("../../../images/footer/footerlogo.svg");
+    background-repeat: no-repeat;
+}
