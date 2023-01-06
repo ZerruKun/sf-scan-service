@@ -1,7 +1,7 @@
 import React from 'react'
-import CheckGuy from '../../components/Middle/CheckGuy/CheckGuy'
-import SerchService from '../../components/Middle/SerchService/SerchService'
-import WhyWe from "../../components/Middle/WhyWe/WhyWe"
+import CheckGuy from '../../components/Middle/Landing/CheckGuy/CheckGuy'
+import SerchService from '../../components/Middle/Landing/SerchService/SerchService'
+import WhyWe from "../../components/Middle/Landing/WhyWe/WhyWe"
 
 const Landing = () => {
   return (

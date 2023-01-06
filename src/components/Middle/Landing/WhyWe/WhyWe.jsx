@@ -6,9 +6,9 @@ import WhyWeCard from '../WhyWeCard/WhyWeCard'
 
 const WhyWe = () => {
 
-  const clockImg = require("../../../images/landing/clock.jpg");
-  const glassImg = require("../../../images/landing/glass.jpg");
-  const shieldImg = require("../../../images/landing/shield.jpg");
+  const clockImg = require("../../../../images/landing/clock.jpg");
+  const glassImg = require("../../../../images/landing/glass.jpg");
+  const shieldImg = require("../../../../images/landing/shield.jpg");
 
   return (
     <div className={styles.general}>

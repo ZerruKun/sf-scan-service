@@ -37,7 +37,7 @@
     width: 100%;
     height: 600px;
     display: flex;
-    background-image: url("../../../images/landing/service.jpg");
+    background-image: url("../../../../images/landing/service.jpg");
     background-size: contain;
     background-repeat: no-repeat;
 }
