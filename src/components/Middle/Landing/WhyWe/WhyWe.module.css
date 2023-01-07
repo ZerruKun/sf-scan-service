@@ -7,10 +7,9 @@
 }
 
 .cardContainer {
-    position: relative;
     margin-bottom: 85px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     /* border: 1px solid black; */
 }
@@ -19,6 +18,8 @@
 .previosButton {
     width: 28px;
     height: 40px;
+    display: flex;
+    flex-shrink: 0;
     background-repeat: no-repeat;
 }
 

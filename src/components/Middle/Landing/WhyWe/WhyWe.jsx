@@ -19,7 +19,7 @@ const WhyWe = () => {
         <WhyWeCard image={glassImg} text="Огромная комплексная база данных, обеспечивающая объективный ответ на запрос"/>
         <WhyWeCard image={shieldImg} text="Защита конфеденциальных сведений, не подлежащих разглашению по федеральному законодательству"/>
         <button className={styles.nextButton}></button>
-      </div>
+      </div>   
     </div>
   )
 }
