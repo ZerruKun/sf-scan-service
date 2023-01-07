@@ -1,0 +1,9 @@
+.general {
+    width: 100%;
+    height: 581px;
+    margin-bottom: 85px;
+    display: flex;
+    background-image: url("../../../../images/landing/checkguy.jpg");
+    background-repeat: no-repeat;
+    background-size:cover;
+}

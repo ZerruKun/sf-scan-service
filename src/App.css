@@ -1,0 +1,24 @@
+@font-face {
+    src: url("./fonts/Ferry_Regular.otf");
+    font-family: "Ferry";
+}
+
+@font-face {
+    src: url("./fonts/Inter-Regular.ttf");
+    font-family: "Inter";
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    color: #000000;
+    background-color: #FFFFFF;;
+}
+
+.App {
+    display: flex;
+    flex-direction: column;
+    margin: 0px auto;
+}
