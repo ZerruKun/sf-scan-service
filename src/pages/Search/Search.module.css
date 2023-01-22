@@ -1,0 +1,18 @@
+.general {
+    max-width: 1320px;
+    width: 100%;
+    margin: 69px auto 64px;
+    display: flex;
+    flex-direction: column;
+}
+
+.top {
+    margin-bottom: 47px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.buttom {
+    display: flex;
+    justify-content: space-between;
+}
