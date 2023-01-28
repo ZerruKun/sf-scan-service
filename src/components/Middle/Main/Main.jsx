@@ -1,7 +1,8 @@
 import React from 'react'
-import Search from '../../../pages/Search/Search'
-// import Landing from '../../../pages/Landing/Landing'
 // import Authorization from "../../../pages/Authorization/Authorization"
+// import Landing from '../../../pages/Landing/Landing'
+// import Search from '../../../pages/Search/Search'
+import SearchResult from '../../../pages/SearchResult/SearchResult'
 import styles from "./Main.module.css"
 
 const Main = () => {
@@ -9,7 +10,8 @@ const Main = () => {
     <div className={styles.general}>
       {/* <Landing /> */}
       {/* <Authorization /> */}
-      <Search />
+      {/* <Search /> */}
+      <SearchResult />
     </div>
   )
 }

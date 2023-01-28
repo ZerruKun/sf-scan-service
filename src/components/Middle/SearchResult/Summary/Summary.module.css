@@ -1,0 +1,79 @@
+.general {
+    margin-bottom: 107px;
+}
+
+.general h3 {
+    margin-bottom: 17px;
+    font-family: 'Ferry';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 30px;
+    line-height: 36px;
+    letter-spacing: 0.02em;
+}
+
+.general p {
+    margin-bottom: 27px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0.02em;
+    color: #949494;
+}
+
+.resultsBlock, 
+.results {
+    display: flex;
+}
+
+.resultsBlock {
+    align-items: center;
+}
+
+.results {
+    height: 158px;
+    align-items: center;
+    border-radius: 10px;
+    border: 2px solid #029491;
+}
+
+.resultsHeaders {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.resultsHeaders {
+    width: 133px;
+    padding: 17px 0px;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0.02em;
+    border-radius: 8px 0px 0px 8px;
+    color: #FFFFFF;
+    background-color: #029491;
+}
+
+.resultsHeaders span {
+    margin-bottom: 26px;
+}
+
+.resultsHeaders span:last-child {
+    margin-bottom: 0px;
+}
+
+.buttonLeft,
+.buttonRight {
+    width: 39px;
+    height: 39px;
+    background-image: url("../../../../images/searchResult/button.svg")
+}
+
+.buttonLeft {
+    transform: rotate(-180deg);
+}
+
+.inactive {
+    opacity: 0.2;
+}
