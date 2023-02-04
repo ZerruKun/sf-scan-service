@@ -1,17 +1,20 @@
 import React from 'react'
-// import Authorization from "../../../pages/Authorization/Authorization"
+import { Route, Routes } from 'react-router'
+import Authorization from "../../../pages/Authorization/Authorization"
 import Landing from '../../../pages/Landing/Landing'
-// import Search from '../../../pages/Search/Search'
-// import SearchResult from '../../../pages/SearchResult/SearchResult'
+import Search from '../../../pages/Search/Search'
+import SearchResult from '../../../pages/SearchResult/SearchResult'
 import styles from "./Main.module.css"
 
 const Main = () => {
   return (
     <div className={styles.general}>
-      <Landing />
-      {/* <Authorization /> */}
-      {/* <Search /> */}
-      {/* <SearchResult /> */}
+      <Routes>
+        <Route path='/' element={<Landing />}/>
+        <Route path='/auth' element={<Authorization />}/>
+        <Route path='/search' element={<Search />}/>
+        <Route path='/result' element={<SearchResult />}/>
+      </Routes>
     </div>
   )
 }
