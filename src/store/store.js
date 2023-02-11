@@ -9,7 +9,7 @@ class Store {
   login = ""
   password = ""
   isAuthError = false;
-  token = {};
+  token = "";
   
   // Observe activated!
 
@@ -43,16 +43,31 @@ class Store {
     })
     .then((response) => {
         if(response.status === 200) {
-          console.log(response.data);
-          this.setToken(response.data);
+          // console.log(response.data);
+          this.setToken(response.data.accessToken);
+          localStorage.setItem("token", response.data.accessToken);
+          // Не понял как работать с форматом даты, который приходит в expire.
+          // Ключ действителен день, реализовал иначе.
+          let currentDate = new Date();
+          localStorage.setItem("expire", currentDate.setDate(currentDate.getDate() + 1));
         }
-        console.log(this.token);
+        // console.log(response.data);
     })
     .catch((err) => {
       console.log(err)
       this.setLogin("");
       this.setPassword("");
     });
+  }
+
+  checkToken = () => {
+    if (localStorage.getItem("token") !== "" && localStorage.getItem("expire") > new Date ()) {
+      this.setToken(localStorage.getItem("token"));
+      // console.log(localStorage.getItem("expire"));
+      // console.log(new Date ());
+      return;
+    }
+    localStorage.clear();
   }
 }
 

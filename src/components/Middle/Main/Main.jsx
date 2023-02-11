@@ -14,6 +14,7 @@ const Main = () => {
         <Route path='/auth' element={<Authorization />}/>
         <Route path='/search' element={<Search />}/>
         <Route path='/result' element={<SearchResult />}/>
+        <Route path='*' element={<Landing />}/>
       </Routes>
     </div>
   )

@@ -3,8 +3,7 @@ import styles from "./AuthForm.module.css"
 import { useForm } from 'react-hook-form'
 import store from '../../../../store/store'
 import { observer } from 'mobx-react-lite'
-import { useNavigate } from 'react-router'
-import { useEffect } from 'react'
+
 
 const AuthForm = observer(() => {
 
@@ -26,18 +25,6 @@ const AuthForm = observer(() => {
     store.getToken();
     reset();
   }
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if(store.token.accessToken !== undefined) {
-      // console.log(store.token);
-      navigate("/");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [store.token])
-
-  // console.log(date);
 
   return (
     <form className={styles.general} onSubmit={handleSubmit(onFormSubmit)}>
