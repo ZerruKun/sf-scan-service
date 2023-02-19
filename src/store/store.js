@@ -6,10 +6,16 @@ class Store {
   
   //Стейт
 
+  // Авторизация
+
   login = ""
   password = ""
   isAuthError = false;
   token = "";
+
+  // Инфо по компаниям
+
+  companiesInfo = {used: 0, limit: 0};
   
   // Observe activated!
 
@@ -34,6 +40,13 @@ class Store {
   setToken = (token) => {
     this.token = token;
   }
+
+  setCompanyLimits = (used, limit) => {
+    this.companiesInfo.used = used;
+    this.companiesInfo.limit = limit;
+  }
+
+  // Авторизация
 
   getToken = () => {
     axios
@@ -60,6 +73,8 @@ class Store {
     });
   }
 
+  // Проверка действительности токена
+
   checkToken = () => {
     if (localStorage.getItem("token") !== "" && localStorage.getItem("expire") > new Date ()) {
       this.setToken(localStorage.getItem("token"));
@@ -68,6 +83,26 @@ class Store {
       return;
     }
     localStorage.clear();
+  }
+
+  // Получение информации о лимитах по компаниям
+
+  getCompaniesInfo = () => {
+    console.log(this.token);
+    axios.get("https://gateway.scan-interfax.ru/api/v1/account/info", {
+      headers: {
+        "Authorization" : `Bearer ${this.token}`
+      }
+    })
+      .then((response) => {
+        this.setCompanyLimits(
+          response.data.eventFiltersInfo.usedCompanyCount, 
+          response.data.eventFiltersInfo.companyLimit
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 }
 
