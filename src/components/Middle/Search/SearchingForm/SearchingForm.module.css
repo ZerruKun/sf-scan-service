@@ -116,6 +116,10 @@
     background: #5970FF;
 }
 
+.submitInput:disabled {
+    opacity: 0.7;
+}
+
 .buttonSection span {
     margin-right: 45px;
     font-size: 14px;
@@ -123,4 +127,15 @@
     letter-spacing: 0.03em;
     text-align: right;
     color: #949494;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+    appearance: textfield;
+    -moz-appearance: textfield;
 }

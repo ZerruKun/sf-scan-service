@@ -1,28 +1,31 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { Stack, TextField } from '@mui/material'
 import { DatePicker } from '@mui/x-date-pickers'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import ruLocale from "date-fns/locale/ru";
+import store from '../../../../store/store';
+import { observer } from 'mobx-react-lite';
 
-const DatePick = () => {
-    const [tempDate, setTempDate] = useState();
+const StartDatePick = observer(() => {
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ruLocale}>
             <Stack spacing={4} sx={{width: "176px"}}>
                 <DatePicker 
                     label="Выберите дату" 
                     renderInput={(params) => <TextField {...params} />}
-                    value={tempDate} 
-                    minDate={new Date("2022-01-01")} 
+                    value={store.startDate} 
+                    maxDate={store.endDate}
                     disableFuture={true} 
                     onChange={(newVaue) => {
-                        setTempDate(newVaue);
-                    }}
+                        store.setStartDate(newVaue);
+                        console.log(newVaue);
+                        }
+                    }
                 />
             </Stack>
         </LocalizationProvider>
     )
-}
+})
 
-export default DatePick
+export default StartDatePick

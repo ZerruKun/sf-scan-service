@@ -1,19 +1,48 @@
 import React from 'react'
-import DatePick from '../DatePick/DatePick'
 import styles from "./SearchingForm.module.css"
-// import { useForm } from 'react-hook-form'
+import StartDatePick from "../StartDatePick/StartDatePick"
+import EndDatePick from "../EndDatePick/EndDatePick"
+import { useForm } from 'react-hook-form'
+import { observer } from 'mobx-react-lite'
+import store from '../../../../store/store'
 
-const SearchingForm = () => {
+const SearchingForm = observer(() => {
+  const {
+    register,
+    formState: {errors, isValid},
+    handleSubmit,
+    reset,
+    } = useForm({
+        mode: "onBlur"
+    });
+
+  const onFormSubmit = (data) => {
+
+  }
+
   return (
     <form className={styles.general}>
         <div className={styles.leftSide}>
             <label className={styles.label}>
                 ИНН компании *
-                <input className={styles.textInput} placeholder="10 цифр"/>
+                <input 
+                    className={styles.textInput} 
+                    placeholder="10 цифр" 
+                    type="number" 
+                    {...register("inn", {
+                        required: true, 
+                        minLength: 10,
+                        pattern:{
+                            valueAsNumber: true,
+                            value: /^(?:0\.(?:0[0-9]|[0-9]\d?)|[0-9]\d*(?:\.\d{1,2})?)(?:e[+-]?\d+)?$/
+                        },
+                    })}
+                />
             </label>
+            {/* Test */}
+            <span>{errors?.inn && <p>Введите корректные данные</p>}</span>
             <label className={styles.label}>
                 Тональность
-                {/* <input className={styles.textInput}/> */}
                 <select className={styles.select}>
                     <option>Любая</option>
                     <option>Позитивная</option>
@@ -22,13 +51,25 @@ const SearchingForm = () => {
             </label>
             <label className={styles.label}>
                 Количество документов в выдаче *
-                <input className={styles.textInput} placeholder="От 1 до 1000"/>
+                <input 
+                    className={styles.textInput} 
+                    placeholder="От 1 до 1000" 
+                    type="number"
+                    {...register("docs", {
+                        required: true, 
+                        min: 1,
+                        max: 1000, 
+                        minLength: 1,
+                        maxLength: 4, 
+                        valueAsNumber: true,
+                    })}
+                />
             </label>
             <label className={styles.label}>
                 Диапазон поиска *
                 <div className={styles.dates}>
-                    <DatePick />
-                    <DatePick />
+                    <StartDatePick />
+                    <EndDatePick />
                 </div>
             </label>
         </div>
@@ -65,12 +106,12 @@ const SearchingForm = () => {
                 </label>
             </div>
             <div className={styles.buttonSection}>
-                <input className={styles.submitInput} value="Поиск" type="submit"/>
+                <input className={styles.submitInput} onClick={(e) => {e.preventDefault(); console.log("bub!")}} value="Поиск" type="submit" disabled={!isValid}/>
                 <span>* Обязательные к заполнению поля</span>
             </div>
         </div>
     </form>
   )
-}
+})
 
 export default SearchingForm

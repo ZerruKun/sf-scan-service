@@ -34,13 +34,15 @@ const AuthForm = observer(() => {
         <button className={`${styles.button} ${styles.signUp}`} disabled>Зарегистрироваться</button>
       </div>
       <label className={styles.label}>
+        {/* Не добавлял маску для телефона, так как не представляю как реализовать проверку в рамках одно поля,
+        а добавлять библиотеку и потом по факту не использовать её, не имеет смысла*/}
         Логин или номер телефона:
         <input 
           className={styles.textInput} 
           type="text"
           {...register("login", {
-          required: true,
-          minLength: 5
+            required: true, 
+            minLength: 5, 
           })}
         />
       </label>
@@ -52,7 +54,7 @@ const AuthForm = observer(() => {
           type="password" 
           {...register("password", {
           required: true,
-          minLength: 5
+          minLength: 5, 
           })}
         />
       </label>

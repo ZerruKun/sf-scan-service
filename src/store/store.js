@@ -4,18 +4,26 @@ const { makeAutoObservable } = require("mobx");
 
 class Store {
   
-  //Стейт
+  // Стейт
 
   // Авторизация
 
-  login = ""
-  password = ""
+  login = "";
+  password = "";
   isAuthError = false;
   token = "";
 
   // Инфо по компаниям
 
   companiesInfo = {used: 0, limit: 0};
+
+  // Форма поиска 
+
+  startDate = new Date();
+  endDate = new Date();
+
+
+  // Стейт завершение
   
   // Observe activated!
 
@@ -23,7 +31,7 @@ class Store {
     makeAutoObservable(this);
   }
 
-  //Экшены
+  // Экшены
 
   setLogin = (login) => {
     this.login = login;
@@ -44,6 +52,14 @@ class Store {
   setCompanyLimits = (used, limit) => {
     this.companiesInfo.used = used;
     this.companiesInfo.limit = limit;
+  }
+
+  setStartDate = (date) => {
+    this.startDate = date;
+  }
+
+  setEndDate = (date) => {
+    this.endDate = date;
   }
 
   // Авторизация
@@ -88,7 +104,7 @@ class Store {
   // Получение информации о лимитах по компаниям
 
   getCompaniesInfo = () => {
-    console.log(this.token);
+    // console.log(this.token);
     axios.get("https://gateway.scan-interfax.ru/api/v1/account/info", {
       headers: {
         "Authorization" : `Bearer ${this.token}`
@@ -104,6 +120,8 @@ class Store {
         console.log(err);
       })
   }
+
+  //Экшены завершение
 }
 
 export default new Store ();
