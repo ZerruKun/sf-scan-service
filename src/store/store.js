@@ -188,75 +188,162 @@ class Store {
 
   getHistogram = () => {
     console.log(this.token); // для проверки
-    axios.post("https://gateway.scan-interfax.ru/api/v1/objectsearch/histograms", {
+    axios.post("https://gateway.scan-interfax.ru/api/v1/objectsearch/histograms", { 
       data: {
+        "intervalType": "day",
+        "histogramTypes": [
+          "totalDocuments"
+        ],
         "issueDateInterval": {
-          "startDate": "2019-01-01T00:00:00+03:00",
-          "endDate": "2022-08-31T23:59:59+03:00"
+          "startDate": "2023-02-24T11:04:08.777Z",
+          "endDate": "2023-02-24T11:04:08.777Z"
         },
         "searchContext": {
           "targetSearchEntitiesContext": {
             "targetSearchEntities": [
               {
-                "type": "company",
-                "sparkId": null,
-                "entityId": null,
-                "inn": 7710137066,
-                "maxFullness": true,
-                "inBusinessNews": null
+                "type": "company"
               }
             ],
             "onlyMainRole": true,
             "tonality": "any",
-            "onlyWithRiskFactors": false,
+            "onlyWithRiskFactors": true,
             "riskFactors": {
-              "and": [],
-              "or": [],
-              "not": []
+              "and": [
+                {
+                  "id": 0
+                }
+              ],
+              "or": [
+                {
+                  "id": 0
+                }
+              ],
+              "not": [
+                {
+                  "id": 0
+                }
+              ]
             },
             "themes": {
-              "and": [],
-              "or": [],
-              "not": []
+              "and": [
+                {
+                  "tonality": "any",
+                  "entityId": 0
+                }
+              ],
+              "or": [
+                {
+                  "tonality": "any",
+                  "entityId": 0
+                }
+              ],
+              "not": [
+                {
+                  "tonality": "any",
+                  "entityId": 0
+                }
+              ]
             }
           },
+          "searchEntitiesFilter": {
+            "and": [
+              {
+                "type": "company"
+              }
+            ],
+            "or": [
+              {
+                "type": "company"
+              }
+            ],
+            "not": [
+              {
+                "type": "company"
+              }
+            ]
+          },
+          "locationsFilter": {
+            "and": [
+              {
+                "countryCode": "string",
+                "regionCode": 0
+              }
+            ],
+            "or": [
+              {
+                "countryCode": "string",
+                "regionCode": 0
+              }
+            ],
+            "not": [
+              {
+                "countryCode": "string",
+                "regionCode": 0
+              }
+            ]
+          },
           "themesFilter": {
-            "and": [],
-            "or": [],
-            "not": []
+            "and": [
+              {
+                "entityId": 0
+              }
+            ],
+            "or": [
+              {
+                "entityId": 0
+              }
+            ],
+            "not": [
+              {
+                "entityId": 0
+              }
+            ]
           }
         },
         "searchArea": {
-          "includedSources": [],
-          "excludedSources": [],
-          "includedSourceGroups": [],
-          "excludedSourceGroups": []
+          "includedSources": [
+            0
+          ],
+          "excludedSources": [
+            0
+          ],
+          "includedSourceGroups": [
+            0
+          ],
+          "excludedSourceGroups": [
+            0
+          ]
         },
         "attributeFilters": {
           "excludeTechNews": true,
           "excludeAnnouncements": true,
           "excludeDigests": true
         },
-        "similarMode": "duplicates",
-        "limit": 1000,
-        "sortType": "sourceInfluence",
-        "sortDirectionType": "desc",
-        "intervalType": "month",
-        "histogramTypes": [
-          "totalDocuments",
-          "riskFactors"
-        ]
-      },
-      headers: {
-        "Authorization" : `Bearer ${this.token}`
+        "similarMode": "none"
       }
     })
       .then((response) => {
-        console.log(response.data)
+        console.log(response)
       })
       .catch((err) => {
         console.log(err);
       })
+  }
+
+  // Интерсептор по рекомендации ментора
+  
+  setToken = (token) => {
+    axios.interceptors.request.use(
+      (config) => {
+        config.headers["Authorization"] = `Bearer ${token}`;
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      }
+    );
+    this.token = token;
   }
 
   //Экшены завершение
