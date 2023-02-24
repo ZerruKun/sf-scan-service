@@ -19,9 +19,74 @@ class Store {
 
   // Форма поиска 
 
+  inn = null;
+  tonality = "any";
+  limit = null;
   startDate = new Date();
   endDate = new Date();
 
+  seachingFormChecks = {
+    maxFullness : false,
+
+  }
+  HistogramData = {
+    "issueDateInterval": {
+      "startDate": `${this.startDate}`,
+      "endDate": `${this.endDate}`
+    },
+    "searchContext": {
+      "targetSearchEntitiesContext": {
+        "targetSearchEntities": [
+          {
+            "type": "company",
+            "sparkId": null,
+            "entityId": null,
+            "inn": `${this.inn}`,  //7710137066
+            "maxFullness": `${this.seachingFormChecks.maxFullness}`,
+            "inBusinessNews": null
+          }
+        ],
+        "onlyMainRole": true,
+        "tonality": `${this.tonality}`,
+        "onlyWithRiskFactors": false,
+        "riskFactors": {
+          "and": [],
+          "or": [],
+          "not": []
+        },
+        "themes": {
+          "and": [],
+          "or": [],
+          "not": []
+        }
+      },
+      "themesFilter": {
+        "and": [],
+        "or": [],
+        "not": []
+      }
+    },
+    "searchArea": {
+      "includedSources": [],
+      "excludedSources": [],
+      "includedSourceGroups": [],
+      "excludedSourceGroups": []
+    },
+    "attributeFilters": {
+      "excludeTechNews": true,
+      "excludeAnnouncements": true,
+      "excludeDigests": true
+    },
+    "similarMode": "duplicates",
+    "limit": `${this.limit}`,
+    "sortType": "sourceInfluence",
+    "sortDirectionType": "desc",
+    "intervalType": "month",
+    "histogramTypes": [
+      "totalDocuments",
+      "riskFactors"
+    ]
+  };
 
   // Стейт завершение
   
@@ -80,7 +145,7 @@ class Store {
           let currentDate = new Date();
           localStorage.setItem("expire", currentDate.setDate(currentDate.getDate() + 1));
         }
-        // console.log(response.data);
+        console.log(response.data);
     })
     .catch((err) => {
       console.log(err)
@@ -115,6 +180,79 @@ class Store {
           response.data.eventFiltersInfo.usedCompanyCount, 
           response.data.eventFiltersInfo.companyLimit
         );
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  getHistogram = () => {
+    console.log(this.token); // для проверки
+    axios.post("https://gateway.scan-interfax.ru/api/v1/objectsearch/histograms", {
+      data: {
+        "issueDateInterval": {
+          "startDate": "2019-01-01T00:00:00+03:00",
+          "endDate": "2022-08-31T23:59:59+03:00"
+        },
+        "searchContext": {
+          "targetSearchEntitiesContext": {
+            "targetSearchEntities": [
+              {
+                "type": "company",
+                "sparkId": null,
+                "entityId": null,
+                "inn": 7710137066,
+                "maxFullness": true,
+                "inBusinessNews": null
+              }
+            ],
+            "onlyMainRole": true,
+            "tonality": "any",
+            "onlyWithRiskFactors": false,
+            "riskFactors": {
+              "and": [],
+              "or": [],
+              "not": []
+            },
+            "themes": {
+              "and": [],
+              "or": [],
+              "not": []
+            }
+          },
+          "themesFilter": {
+            "and": [],
+            "or": [],
+            "not": []
+          }
+        },
+        "searchArea": {
+          "includedSources": [],
+          "excludedSources": [],
+          "includedSourceGroups": [],
+          "excludedSourceGroups": []
+        },
+        "attributeFilters": {
+          "excludeTechNews": true,
+          "excludeAnnouncements": true,
+          "excludeDigests": true
+        },
+        "similarMode": "duplicates",
+        "limit": 1000,
+        "sortType": "sourceInfluence",
+        "sortDirectionType": "desc",
+        "intervalType": "month",
+        "histogramTypes": [
+          "totalDocuments",
+          "riskFactors"
+        ]
+      },
+      headers: {
+        "Authorization" : `Bearer ${this.token}`
+      }
+    })
+      .then((response) => {
+        console.log(response.data)
       })
       .catch((err) => {
         console.log(err);
