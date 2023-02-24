@@ -21,5 +21,7 @@
     font-size: 14px;
     line-height: 17px;
     border-radius: 5px;
+    text-decoration: none;
+    color: #000000;
     background-color: #7CE3E1;
 }

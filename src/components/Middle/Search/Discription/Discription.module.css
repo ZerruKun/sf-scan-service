@@ -1,0 +1,22 @@
+.general {
+    display: flex;
+    flex-direction: column;
+}
+
+.general h1{
+    max-width: 660px;
+    width: 100%;
+    margin-bottom: 25px;
+    font-family: 'Ferry';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: 0.03em;
+}
+
+.general p {
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0.02em;
+}

@@ -1,0 +1,22 @@
+.general {
+    width: 131px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0.02em;
+    border-right: 2px solid #949494;
+}
+
+.general:last-of-type {
+    border-right: none;
+}
+
+.general span {
+    margin-bottom: 26px;
+}
+
+.general span:last-child {
+    margin-bottom: 0px;
+}

@@ -1,7 +1,14 @@
-import React from 'react'
+import { observer } from 'mobx-react-lite';
+import React, { useEffect } from 'react'
 import styles from "./CompanyLimit.module.css"
+import store from '../../../store/store';
 
-const CompanyLimit = () => {
+const CompanyLimit = observer(() => {
+  
+  useEffect (() => {
+    store.getCompaniesInfo();
+  }, [])
+
   return (
     <div className={styles.general}>
       <div className={styles.lists}>
@@ -10,8 +17,8 @@ const CompanyLimit = () => {
             <li className={styles.nameItem}>Лимит по компаниям</li>
         </ul>
         <ul className={styles.valueList}>
-            <li className={styles.valueItem}>34</li>
-            <li className={styles.valueItem}>100</li>
+            <li className={styles.valueItem}>{store.companiesInfo.used}</li>
+            <li className={styles.valueItem}>{store.companiesInfo.limit}</li>
         </ul>
       </div>
       <div>
@@ -19,6 +26,6 @@ const CompanyLimit = () => {
       </div>
     </div>
   )
-}
+})
 
 export default CompanyLimit

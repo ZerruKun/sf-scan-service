@@ -1,0 +1,23 @@
+.general {
+    max-width: 400px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-self: flex-end;
+}
+
+.document {
+    width: 91px;
+    height: 111px;
+    background-image: url("../../../../images/search/document.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.folders {
+    width: 141px;
+    height: 69px;
+    background-image: url("../../../../images/search/folders.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}

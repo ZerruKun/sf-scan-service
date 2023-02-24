@@ -1,0 +1,39 @@
+.general {
+    display: flex;
+    justify-content: space-between;
+}
+
+.discription {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.discription h1 {
+    max-width: 520px;
+    width: 100%;
+    margin-bottom: 36px;
+    font-family: 'Ferry';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: 0.04em;
+}
+
+.discription p {
+    max-width: 420px;
+    width: 100%;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0.02em;
+}
+
+.shieldGirl {
+    max-width: 553px;
+    width: 100%;
+    height: 369px;
+    align-self: flex-end;
+    background-image: url("../../../../images/searchResult/shieldgirl.png");
+    background-size: cover;
+}
