@@ -27,8 +27,8 @@ class Store {
 
   seachingFormChecks = {
     maxFullness : false,
-
   }
+
   HistogramData = {
     "issueDateInterval": {
       "startDate": `${this.startDate}`,
@@ -87,6 +87,70 @@ class Store {
       "riskFactors"
     ]
   };
+
+  testSummaryResults = {
+    "data": [{
+      "data": [{
+        "date": "2020-05-01T03:00:00+03:00",
+        "value": 8
+      }, {
+        "date": "2020-06-01T03:00:00+03:00",
+        "value": 6
+      }, {
+        "date": "2020-11-01T03:00:00+03:00",
+        "value": 7
+      }, {
+        "date": "2020-12-01T03:00:00+03:00",
+        "value": 5
+      }, {
+        "date": "2020-13-01T03:00:00+03:00",
+        "value": 8
+      }, {
+        "date": "2020-14-01T03:00:00+03:00",
+        "value": 6
+      }, {
+        "date": "2020-15-01T03:00:00+03:00",
+        "value": 7
+      }, {
+        "date": "2020-16-01T03:00:00+03:00",
+        "value": 5
+      }, {
+        "date": "2020-16-01T03:00:00+03:00",
+        "value": 3
+      }],
+      "histogramType": "totalDocuments"
+    }, {
+      "data": [{
+        "date": "2020-05-01T03:00:00+03:00",
+        "value": 0
+      }, {
+        "date": "2020-06-01T03:00:00+03:00",
+        "value": 1
+      }, {
+        "date": "2020-11-01T03:00:00+03:00",
+        "value": 2
+      }, {
+        "date": "2020-12-01T03:00:00+03:00",
+        "value": 3
+      }, {
+        "date": "2020-05-01T03:00:00+03:00",
+        "value": 0
+      }, {
+        "date": "2020-06-01T03:00:00+03:00",
+        "value": 1
+      }, {
+        "date": "2020-11-01T03:00:00+03:00",
+        "value": 2
+      }, {
+        "date": "2020-12-01T03:00:00+03:00",
+        "value": 3
+      }, {
+        "date": "2020-12-01T03:00:00+03:00",
+        "value": 0
+      }],
+      "histogramType": "riskFactors"
+    }]
+  }
 
   // Стейт завершение
   
@@ -192,7 +256,7 @@ class Store {
       data: {
         "issueDateInterval": {
           "startDate": "2019-01-01T00:00:00+03:00",
-          "endDate": "2022-08-31T23:59:59+03:00"
+          "endDate": "2023-08-31T23:59:59+03:00"
         },
         "searchContext": {
           "targetSearchEntitiesContext": {
@@ -201,12 +265,12 @@ class Store {
                 "type": "company",
                 "sparkId": null,
                 "entityId": null,
-                "inn": 7710137066,
-                "maxFullness": true,
+                "inn": null,
+                "maxFullness": false,
                 "inBusinessNews": null
               }
             ],
-            "onlyMainRole": true,
+            "onlyMainRole": false,
             "tonality": "any",
             "onlyWithRiskFactors": false,
             "riskFactors": {
@@ -233,9 +297,9 @@ class Store {
           "excludedSourceGroups": []
         },
         "attributeFilters": {
-          "excludeTechNews": true,
-          "excludeAnnouncements": true,
-          "excludeDigests": true
+          "excludeTechNews": false,
+          "excludeAnnouncements": false,
+          "excludeDigests": false
         },
         "similarMode": "duplicates",
         "limit": 1000,
