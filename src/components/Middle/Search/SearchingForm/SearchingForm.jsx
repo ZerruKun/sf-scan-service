@@ -106,7 +106,7 @@ const SearchingForm = observer(() => {
                 </label>
             </div>
             <div className={styles.buttonSection}>
-                <input className={styles.submitInput} onClick={(e) => {e.preventDefault(); console.log("Поиск"); store.getHistogram();}} value="Поиск" type="submit" disabled={!isValid}/>
+                <input className={styles.submitInput} onClick={(e) => {e.preventDefault(); console.log("Поиск"); store.getHistogram(); store.getPublishIds(); store.getPublishes();}} value="Поиск" type="submit" disabled={!isValid}/>
                 <span>* Обязательные к заполнению поля</span>
             </div>
         </div>
