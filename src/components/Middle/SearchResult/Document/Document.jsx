@@ -13,7 +13,7 @@ const Document = (props) => {
   return (
     <div className={styles.general}>
       {/* {console.log(xml)} */}
-      {/* {console.log(xmlText)} */}
+      {console.log(xmlText)}
       {console.log(xmlImg)}
       <div className={styles.info}>
         <span className={styles.date}>{props.date}</span>
@@ -28,7 +28,7 @@ const Document = (props) => {
       </div>
       <div className={styles.text}>
         {xmlText.map((paragraph, index) => {
-          return <p key={index}>{paragraph.value.replace(/<\/?[^>]+(>|$)/g, "")}</p>
+          return <p key={index}>{paragraph.value.replace(/<\/?[^>]+(>|$)/g, "").replace(/&\/?[^>]+(;|$)/g, "")}</p>
         })}
       </div>
       <div className={styles.bottomSection}>

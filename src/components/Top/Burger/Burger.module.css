@@ -1,0 +1,18 @@
+.general {
+    display: none;
+}
+
+@media screen and (max-width: 765px) {
+    .general {
+        margin-right: 10px;
+        display: flex;
+        width: 30px;
+        height: 25px;
+        background-image: url("../../../images/header/burger.svg");
+        background-repeat: no-repeat;
+    }
+
+    .general:hover {
+        cursor: pointer;
+    }
+}

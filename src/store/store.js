@@ -439,6 +439,8 @@ class Store {
 
   // Экшены
 
+  // Сеттеры авторизации
+
   setLogin = (login) => {
     this.login = login;
   }
@@ -451,13 +453,25 @@ class Store {
     this.isAuthError = bool;
   }
 
-  // setToken = (token) => {
-  //   this.token = token;
-  // }
+  // Сеттер лимитов
 
   setCompanyLimits = (used, limit) => {
     this.companiesInfo.used = used;
     this.companiesInfo.limit = limit;
+  }
+
+  // Сеттеры формы
+
+  setInn = (inn) => {
+    this.inn = inn;
+  }
+
+  setTonality = (ton) => {
+    this.tonality = ton;
+  }
+
+  setLimit = (number) => {
+    this.limit = number;
   }
 
   setStartDate = (date) => {
@@ -466,6 +480,14 @@ class Store {
 
   setEndDate = (date) => {
     this.endDate = date;
+  }
+
+
+  
+
+
+  setPublish = (data) => {
+    this.Publishes = data;
   }
 
   // Авторизация
@@ -674,12 +696,15 @@ class Store {
   // Получения самих статей 
 
   getPublishes = () => {
-    console.log(this.token); // для проверки
+    // для проверки
+    // console.log(this.token); 
     axios.post("https://gateway.scan-interfax.ru/api/v1/documents", { 
       ids: ["1:0JPQqdGM0JNWCdCzf2Jt0LHQotGV0ZUh0ZbRlBXCt0Je0JHQruKAnDcUXkZQ0YvQscKnehLRnNC1KtGK0Ll9BWLigLo/HXXCrhw="]
     })
       .then((response) => {
-        console.log(response)
+        console.log(response.data);
+        this.setPublish(response.data);
+        // console.log(this.Publishes);
       })
       .catch((err) => {
         console.log(err);

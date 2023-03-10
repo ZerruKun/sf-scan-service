@@ -10,6 +10,7 @@ const Interaction = observer(() => {
   useEffect(() => {
     store.checkToken();
   }, [])
+  // Токен изменение для теста!
   return (
     <div className={styles.general}>
       <Navigation />
