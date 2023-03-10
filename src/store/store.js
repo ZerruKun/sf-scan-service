@@ -27,6 +27,54 @@ class Store {
 
   seachingFormChecks = {
     maxFullness : false,
+    inBusinessNews: false,
+    onlyMainRole: false,
+    onlyWithRiskFactors: false,
+    isTechNews: true,
+    isAnnouncement: true,
+    isDigest: true,
+  }
+
+  setSeachingFormChecks = (param) => {
+    switch (param) {
+      case "maxFullness":
+        this.seachingFormChecks.maxFullness === false 
+        ? this.seachingFormChecks.maxFullness = true
+        : this.seachingFormChecks.maxFullness = false;
+        break;
+      case "inBusinessNews":
+        this.seachingFormChecks.inBusinessNews === false 
+        ? this.seachingFormChecks.inBusinessNews = true 
+        : this.seachingFormChecks.inBusinessNews = false;
+        break;
+      case "onlyMainRole":
+        this.seachingFormChecks.onlyMainRole === false 
+        ? this.seachingFormChecks.onlyMainRole = true 
+        : this.seachingFormChecks.onlyMainRole = false;
+        break;
+      case "onlyWithRiskFactors":
+        this.seachingFormChecks.onlyWithRiskFactors === false 
+        ? this.seachingFormChecks.onlyWithRiskFactors = true 
+        : this.seachingFormChecks.onlyWithRiskFactors = false;
+        break;
+      case "isTechNews":
+        this.seachingFormChecks.isTechNews === false 
+        ? this.seachingFormChecks.isTechNews = true 
+        : this.seachingFormChecks.isTechNews = false;
+        break;
+      case "isAnnouncement":
+        this.seachingFormChecks.isAnnouncement === false 
+        ? this.seachingFormChecks.isAnnouncement = true 
+        : this.seachingFormChecks.isAnnouncement = false;
+        break;
+      case "isDigest":
+        this.seachingFormChecks.isDigest === false 
+        ? this.seachingFormChecks.isDigest = true 
+        : this.seachingFormChecks.isDigest = false;
+        break;
+      default:
+        break;
+    }
   }
 
   HistogramData = {
@@ -43,12 +91,12 @@ class Store {
             "entityId": null,
             "inn": `${this.inn}`,  //7710137066
             "maxFullness": `${this.seachingFormChecks.maxFullness}`,
-            "inBusinessNews": null
+            "inBusinessNews": `${this.seachingFormChecks.inBusinessNews}`
           }
         ],
-        "onlyMainRole": true,
+        "onlyMainRole": `${this.seachingFormChecks.onlyMainRole}`,
         "tonality": `${this.tonality}`,
-        "onlyWithRiskFactors": false,
+        "onlyWithRiskFactors": `${this.seachingFormChecks.onlyWithRiskFactors}`,
         "riskFactors": {
           "and": [],
           "or": [],
@@ -73,9 +121,9 @@ class Store {
       "excludedSourceGroups": []
     },
     "attributeFilters": {
-      "excludeTechNews": true,
-      "excludeAnnouncements": true,
-      "excludeDigests": true
+      "excludeTechNews": `${this.seachingFormChecks.isTechNews}`,
+      "excludeAnnouncements": `${this.seachingFormChecks.isAnnouncement}`,
+      "excludeDigests": `${this.seachingFormChecks.isDigest}`
     },
     "similarMode": "duplicates",
     "limit": `${this.limit}`,
@@ -482,9 +530,7 @@ class Store {
     this.endDate = date;
   }
 
-
-  
-
+  /////////
 
   setPublish = (data) => {
     this.Publishes = data;
@@ -554,64 +600,7 @@ class Store {
   getHistogram = () => {
     console.log(this.token); // для проверки
     axios.post("https://gateway.scan-interfax.ru/api/v1/objectsearch/histograms", { 
-      data: {
-        "issueDateInterval": {
-          "startDate": "2019-01-01T00:00:00+03:00",
-          "endDate": "2023-08-31T23:59:59+03:00"
-        },
-        "searchContext": {
-          "targetSearchEntitiesContext": {
-            "targetSearchEntities": [
-              {
-                "type": "company",
-                "sparkId": null,
-                "entityId": null,
-                "inn": null,
-                "maxFullness": false,
-                "inBusinessNews": null
-              }
-            ],
-            "onlyMainRole": false,
-            "tonality": "any",
-            "onlyWithRiskFactors": false,
-            "riskFactors": {
-              "and": [],
-              "or": [],
-              "not": []
-            },
-            "themes": {
-              "and": [],
-              "or": [],
-              "not": []
-            }
-          },
-          "themesFilter": {
-            "and": [],
-            "or": [],
-            "not": []
-          }
-        },
-        "searchArea": {
-          "includedSources": [],
-          "excludedSources": [],
-          "includedSourceGroups": [],
-          "excludedSourceGroups": []
-        },
-        "attributeFilters": {
-          "excludeTechNews": false,
-          "excludeAnnouncements": false,
-          "excludeDigests": false
-        },
-        "similarMode": "duplicates",
-        "limit": 1000,
-        "sortType": "sourceInfluence",
-        "sortDirectionType": "desc",
-        "intervalType": "month",
-        "histogramTypes": [
-          "totalDocuments",
-          "riskFactors"
-        ]
-      }
+      data: this.HistogramData
     })
       .then((response) => {
         console.log(response)

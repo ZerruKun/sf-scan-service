@@ -5,23 +5,36 @@ import EndDatePick from "../EndDatePick/EndDatePick"
 import { useForm } from 'react-hook-form'
 import { observer } from 'mobx-react-lite'
 import store from '../../../../store/store'
+import { useNavigate } from 'react-router'
 
 const SearchingForm = observer(() => {
+
+  const navigate = useNavigate();
+
   const {
     register,
     formState: {errors, isValid},
     handleSubmit,
-    reset,
+    // reset,
     } = useForm({
         mode: "onBlur"
     });
 
   const onFormSubmit = (data) => {
-
+    console.log("Пошёл сабмит");
+    store.setInn(data.inn);
+    store.setTonality("any");
+    store.setLimit(data.docs);
+    store.getHistogram();
+    console.log("Поиск");
+    store.getHistogram(); 
+    store.getPublishIds(); 
+    store.getPublishes();
+    navigate("/result");
   }
 
   return (
-    <form className={styles.general}>
+    <form className={styles.general} onSubmit={handleSubmit(onFormSubmit)}>
         <div className={styles.leftSide}>
             <label className={styles.label}>
                 ИНН компании *
@@ -76,39 +89,39 @@ const SearchingForm = observer(() => {
         <div className={styles.rightSide}>
             <div className={styles.checksSection}>
                 {/* Active exemple */}
-                <label className={`${styles.inputLabel} ${styles.activeInputLabel}`}>
-                    <input className={styles.checkbox} type="checkbox"/>
+                <label className={store.seachingFormChecks.maxFullness === true ? `${styles.inputLabel} ${styles.activeInputLabel}` : styles.inputLabel}>
+                    <input className={styles.checkbox} type="checkbox" onChange={() => store.setSeachingFormChecks("maxFullness")}/>
                     Признак максимальной полноты
                 </label>
-                <label className={styles.inputLabel}>
-                    <input className={styles.checkbox} type="checkbox"/>
+                <label className={store.seachingFormChecks.inBusinessNews === true ? `${styles.inputLabel} ${styles.activeInputLabel}` : styles.inputLabel}>
+                    <input className={styles.checkbox} type="checkbox" onChange={() => store.setSeachingFormChecks("inBusinessNews")}/>
                     Упоминания в бизнес-контексте
                 </label>
-                <label className={styles.inputLabel}>
-                    <input className={styles.checkbox} type="checkbox"/>
+                <label className={store.seachingFormChecks.onlyMainRole === true ? `${styles.inputLabel} ${styles.activeInputLabel}` : styles.inputLabel}>
+                    <input className={styles.checkbox} type="checkbox" onChange={() => store.setSeachingFormChecks("onlyMainRole")}/>
                     Главная роль в публикации
                 </label>
-                <label className={styles.inputLabel}>
-                    <input className={styles.checkbox} type="checkbox"/>
+                <label className={store.seachingFormChecks.onlyWithRiskFactors === true ? `${styles.inputLabel} ${styles.activeInputLabel}` : styles.inputLabel}>
+                    <input className={styles.checkbox} type="checkbox" onChange={() => store.setSeachingFormChecks("onlyWithRiskFactors")}/>
                     Публикации только с риск-факторами
                 </label>
-                <label className={styles.inputLabel}>
-                    <input className={styles.checkbox} type="checkbox"/>
+                <label className={store.seachingFormChecks.isTechNews === false ? `${styles.inputLabel} ${styles.activeInputLabel}` : styles.inputLabel}>
+                    <input className={styles.checkbox} type="checkbox" onChange={() => store.setSeachingFormChecks("isTechNews")}/>
                     Включать технические новости рынков
                 </label>
-                <label className={styles.inputLabel}>
-                    <input className={styles.checkbox} type="checkbox"/>
+                <label className={store.seachingFormChecks.isAnnouncement === false ? `${styles.inputLabel} ${styles.activeInputLabel}` : styles.inputLabel}>
+                    <input className={styles.checkbox} type="checkbox" onChange={() => store.setSeachingFormChecks("isAnnouncement")}/>
                     Включать анонсы и календари
                 </label>
-                <label className={styles.inputLabel}>
-                    <input className={styles.checkbox} type="checkbox"/>
+                <label className={store.seachingFormChecks.isDigest === false ? `${styles.inputLabel} ${styles.activeInputLabel}` : styles.inputLabel}>
+                    <input className={styles.checkbox} type="checkbox" onChange={() => store.setSeachingFormChecks("isDigest")}/>
                     Включать сводки новостей
                 </label>
             </div>
-            <div className={styles.buttonSection}>
-                <input className={styles.submitInput} onClick={(e) => {e.preventDefault(); console.log("Поиск"); store.getHistogram(); store.getPublishIds(); store.getPublishes();}} value="Поиск" type="submit" disabled={!isValid}/>
+            <label className={styles.buttonSection}>
+                <input className={styles.submitInput} value="Поиск" type="submit" disabled={!isValid}/>
                 <span>* Обязательные к заполнению поля</span>
-            </div>
+            </label>
         </div>
     </form>
   )
