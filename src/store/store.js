@@ -21,7 +21,7 @@ class Store {
 
   inn = null;
   tonality = "any";
-  limit = null;
+  limit = 0;
   startDate = new Date();
   endDate = new Date();
 
@@ -35,112 +35,70 @@ class Store {
     isDigest: true,
   }
 
-  setSeachingFormChecks = (param) => {
-    switch (param) {
-      case "maxFullness":
-        this.seachingFormChecks.maxFullness === false 
-        ? this.seachingFormChecks.maxFullness = true
-        : this.seachingFormChecks.maxFullness = false;
-        break;
-      case "inBusinessNews":
-        this.seachingFormChecks.inBusinessNews === false 
-        ? this.seachingFormChecks.inBusinessNews = true 
-        : this.seachingFormChecks.inBusinessNews = false;
-        break;
-      case "onlyMainRole":
-        this.seachingFormChecks.onlyMainRole === false 
-        ? this.seachingFormChecks.onlyMainRole = true 
-        : this.seachingFormChecks.onlyMainRole = false;
-        break;
-      case "onlyWithRiskFactors":
-        this.seachingFormChecks.onlyWithRiskFactors === false 
-        ? this.seachingFormChecks.onlyWithRiskFactors = true 
-        : this.seachingFormChecks.onlyWithRiskFactors = false;
-        break;
-      case "isTechNews":
-        this.seachingFormChecks.isTechNews === false 
-        ? this.seachingFormChecks.isTechNews = true 
-        : this.seachingFormChecks.isTechNews = false;
-        break;
-      case "isAnnouncement":
-        this.seachingFormChecks.isAnnouncement === false 
-        ? this.seachingFormChecks.isAnnouncement = true 
-        : this.seachingFormChecks.isAnnouncement = false;
-        break;
-      case "isDigest":
-        this.seachingFormChecks.isDigest === false 
-        ? this.seachingFormChecks.isDigest = true 
-        : this.seachingFormChecks.isDigest = false;
-        break;
-      default:
-        break;
-    }
-  }
+  // histogramData = {
+  //   "issueDateInterval": {
+  //     "startDate": `${this.startDate}`,
+  //     "endDate": `${this.endDate}`
+  //   },
+  //   "searchContext": {
+  //     "targetSearchEntitiesContext": {
+  //       "targetSearchEntities": [
+  //         {
+  //           "type": "company",
+  //           "sparkId": null,
+  //           "entityId": null,
+  //           "inn": `${this.inn}`,  //7710137066
+  //           "maxFullness": `${this.seachingFormChecks.maxFullness}`,
+  //           "inBusinessNews": `${this.seachingFormChecks.inBusinessNews}`
+  //         }
+  //       ],
+  //       "onlyMainRole": `${this.seachingFormChecks.onlyMainRole}`,
+  //       "tonality": `${this.tonality}`,
+  //       "onlyWithRiskFactors": `${this.seachingFormChecks.onlyWithRiskFactors}`,
+  //       "riskFactors": {
+  //         "and": [],
+  //         "or": [],
+  //         "not": []
+  //       },
+  //       "themes": {
+  //         "and": [],
+  //         "or": [],
+  //         "not": []
+  //       }
+  //     },
+  //     "themesFilter": {
+  //       "and": [],
+  //       "or": [],
+  //       "not": []
+  //     }
+  //   },
+  //   "searchArea": {
+  //     "includedSources": [],
+  //     "excludedSources": [],
+  //     "includedSourceGroups": [],
+  //     "excludedSourceGroups": []
+  //   },
+  //   "attributeFilters": {
+  //     "excludeTechNews": `${this.seachingFormChecks.isTechNews}`,
+  //     "excludeAnnouncements": `${this.seachingFormChecks.isAnnouncement}`,
+  //     "excludeDigests": `${this.seachingFormChecks.isDigest}`
+  //   },
+  //   "similarMode": "duplicates",
+  //   "limit": `${this.limit}`,
+  //   "sortType": "sourceInfluence",
+  //   "sortDirectionType": "desc",
+  //   "intervalType": "month",
+  //   "histogramTypes": [
+  //     "totalDocuments",
+  //     "riskFactors"
+  //   ]
+  // };
 
-  HistogramData = {
-    "issueDateInterval": {
-      "startDate": `${this.startDate}`,
-      "endDate": `${this.endDate}`
-    },
-    "searchContext": {
-      "targetSearchEntitiesContext": {
-        "targetSearchEntities": [
-          {
-            "type": "company",
-            "sparkId": null,
-            "entityId": null,
-            "inn": `${this.inn}`,  //7710137066
-            "maxFullness": `${this.seachingFormChecks.maxFullness}`,
-            "inBusinessNews": `${this.seachingFormChecks.inBusinessNews}`
-          }
-        ],
-        "onlyMainRole": `${this.seachingFormChecks.onlyMainRole}`,
-        "tonality": `${this.tonality}`,
-        "onlyWithRiskFactors": `${this.seachingFormChecks.onlyWithRiskFactors}`,
-        "riskFactors": {
-          "and": [],
-          "or": [],
-          "not": []
-        },
-        "themes": {
-          "and": [],
-          "or": [],
-          "not": []
-        }
-      },
-      "themesFilter": {
-        "and": [],
-        "or": [],
-        "not": []
-      }
-    },
-    "searchArea": {
-      "includedSources": [],
-      "excludedSources": [],
-      "includedSourceGroups": [],
-      "excludedSourceGroups": []
-    },
-    "attributeFilters": {
-      "excludeTechNews": `${this.seachingFormChecks.isTechNews}`,
-      "excludeAnnouncements": `${this.seachingFormChecks.isAnnouncement}`,
-      "excludeDigests": `${this.seachingFormChecks.isDigest}`
-    },
-    "similarMode": "duplicates",
-    "limit": `${this.limit}`,
-    "sortType": "sourceInfluence",
-    "sortDirectionType": "desc",
-    "intervalType": "month",
-    "histogramTypes": [
-      "totalDocuments",
-      "riskFactors"
-    ]
-  };
+  summaryResults = {};
 
-  SummaryResults = {};
+  publishIds = {};
 
-  PublishIds = {};
-
-  Publishes = [];
+  publishes = [];
 
   // Стейт завершение
 
@@ -530,10 +488,58 @@ class Store {
     this.endDate = date;
   }
 
+  setSeachingFormChecks = (param) => {
+    switch (param) {
+      case "maxFullness":
+        this.seachingFormChecks.maxFullness === false 
+        ? this.seachingFormChecks.maxFullness = true
+        : this.seachingFormChecks.maxFullness = false;
+        break;
+      case "inBusinessNews":
+        this.seachingFormChecks.inBusinessNews === false 
+        ? this.seachingFormChecks.inBusinessNews = true 
+        : this.seachingFormChecks.inBusinessNews = false;
+        break;
+      case "onlyMainRole":
+        this.seachingFormChecks.onlyMainRole === false 
+        ? this.seachingFormChecks.onlyMainRole = true 
+        : this.seachingFormChecks.onlyMainRole = false;
+        break;
+      case "onlyWithRiskFactors":
+        this.seachingFormChecks.onlyWithRiskFactors === false 
+        ? this.seachingFormChecks.onlyWithRiskFactors = true 
+        : this.seachingFormChecks.onlyWithRiskFactors = false;
+        break;
+      case "isTechNews":
+        this.seachingFormChecks.isTechNews === false 
+        ? this.seachingFormChecks.isTechNews = true 
+        : this.seachingFormChecks.isTechNews = false;
+        break;
+      case "isAnnouncement":
+        this.seachingFormChecks.isAnnouncement === false 
+        ? this.seachingFormChecks.isAnnouncement = true 
+        : this.seachingFormChecks.isAnnouncement = false;
+        break;
+      case "isDigest":
+        this.seachingFormChecks.isDigest === false 
+        ? this.seachingFormChecks.isDigest = true 
+        : this.seachingFormChecks.isDigest = false;
+        break;
+      default:
+        break;
+    }
+  }
+
+  //////////
+
+  setSummaryResults = (results) => {
+    this.summaryResults = results;
+  };
+
   /////////
 
   setPublish = (data) => {
-    this.Publishes = data;
+    this.publishes = data;
   }
 
   // Авторизация
@@ -598,12 +604,74 @@ class Store {
   // Запрос сводки на конкретные даты
 
   getHistogram = () => {
-    console.log(this.token); // для проверки
+    // Для теста
+    console.log("ИНН: " + this.inn);
+    console.log("Тональность: " + this.tonality);
+    console.log("Лимит (пока в сеттер просто передаётся строчка из допустимых значений): " + this.limit);
+    console.log("Дата начала: " + this.startDate);
+    console.log("Дата начала: " + this.endDate);
     axios.post("https://gateway.scan-interfax.ru/api/v1/objectsearch/histograms", { 
-      data: this.HistogramData
+      data: {
+        "issueDateInterval": {
+          "startDate": `${this.startDate}`,
+          "endDate": `${this.endDate}`
+        },
+        "searchContext": {
+          "targetSearchEntitiesContext": {
+            "targetSearchEntities": [
+              {
+                "type": "company",
+                "sparkId": null,
+                "entityId": null,
+                "inn": `${this.inn}`,  //7710137066
+                "maxFullness": `${this.seachingFormChecks.maxFullness}`,
+                "inBusinessNews": `${this.seachingFormChecks.inBusinessNews}`
+              }
+            ],
+            "onlyMainRole": `${this.seachingFormChecks.onlyMainRole}`,
+            "tonality": `${this.tonality}`,
+            "onlyWithRiskFactors": `${this.seachingFormChecks.onlyWithRiskFactors}`,
+            "riskFactors": {
+              "and": [],
+              "or": [],
+              "not": []
+            },
+            "themes": {
+              "and": [],
+              "or": [],
+              "not": []
+            }
+          },
+          "themesFilter": {
+            "and": [],
+            "or": [],
+            "not": []
+          }
+        },
+        "searchArea": {
+          "includedSources": [],
+          "excludedSources": [],
+          "includedSourceGroups": [],
+          "excludedSourceGroups": []
+        },
+        "attributeFilters": {
+          "excludeTechNews": `${this.seachingFormChecks.isTechNews}`,
+          "excludeAnnouncements": `${this.seachingFormChecks.isAnnouncement}`,
+          "excludeDigests": `${this.seachingFormChecks.isDigest}`
+        },
+        "similarMode": "duplicates",
+        "limit": `${this.limit}`,
+        "sortType": "sourceInfluence",
+        "sortDirectionType": "desc",
+        "intervalType": "month",
+        "histogramTypes": [
+          "totalDocuments",
+          "riskFactors"
+        ]
+      }
     })
       .then((response) => {
-        console.log(response)
+        console.log(response);
       })
       .catch((err) => {
         console.log(err);
@@ -613,7 +681,8 @@ class Store {
   // Запрос списка ID публикаций
 
   getPublishIds = () => {
-    console.log(this.token); // для проверки
+    // для проверки
+    // console.log(this.token);
     axios.post("https://gateway.scan-interfax.ru/api/v1/objectsearch", { 
       data: {
         "issueDateInterval": {

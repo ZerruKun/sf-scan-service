@@ -21,12 +21,13 @@ const SearchingForm = observer(() => {
     });
 
   const onFormSubmit = (data) => {
-    console.log("Пошёл сабмит");
+    console.log("Сабмит формы");
+    console.log("Инн в дате формы: " + data.inn);
+    console.log("Лимит в дате формы: " + data.limit);
     store.setInn(data.inn);
-    store.setTonality("any");
-    store.setLimit(data.docs);
-    store.getHistogram();
-    console.log("Поиск");
+    store.setTonality("any"); // Для теста
+    store.setLimit(data.limit);
+    console.log("Поиск, обязательные данные, которые из стора");
     store.getHistogram(); 
     store.getPublishIds(); 
     store.getPublishes();
@@ -68,7 +69,7 @@ const SearchingForm = observer(() => {
                     className={styles.textInput} 
                     placeholder="От 1 до 1000" 
                     type="number"
-                    {...register("docs", {
+                    {...register("limit", {
                         required: true, 
                         min: 1,
                         max: 1000, 

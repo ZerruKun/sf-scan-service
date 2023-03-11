@@ -16,7 +16,7 @@ const Documents = observer(() => {
     <div className={styles.general}>
       <h3>Список документов</h3>
       <div className={styles.documents}>
-        {store.Publishes.map((article) => {
+        {store.publishes.map((article) => {
           return(
             <Document 
               key={article.ok.id}
