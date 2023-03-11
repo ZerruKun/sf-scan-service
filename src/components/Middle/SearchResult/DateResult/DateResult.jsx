@@ -1,12 +1,12 @@
 import React from 'react'
 import styles from "./DateResult.module.css"
 
-const DateResult = () => {
+const DateResult = (props) => {
   return (
     <div className={styles.general}>
-        <span>10.09.2021</span>
-        <span>5</span>
-        <span>0</span>
+        <span>{props.date}</span>
+        <span>{props.all}</span>
+        <span>{props.risks}</span>
     </div>
   )
 }

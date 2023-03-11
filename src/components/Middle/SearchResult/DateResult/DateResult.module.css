@@ -9,10 +9,6 @@
     border-right: 2px solid #949494;
 }
 
-.general:last-of-type {
-    border-right: none;
-}
-
 .general span {
     margin-bottom: 26px;
 }
