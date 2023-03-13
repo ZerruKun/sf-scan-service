@@ -605,78 +605,74 @@ class Store {
 
   getHistogram = () => {
     // Для теста
-    console.log("ИНН: " + this.inn);
-    console.log("Тональность: " + this.tonality);
-    console.log("Лимит (пока в сеттер просто передаётся строчка из допустимых значений): " + this.limit);
-    console.log("Дата начала: " + this.startDate);
-    console.log("Дата начала: " + this.endDate);
-    axios.post("https://gateway.scan-interfax.ru/api/v1/objectsearch/histograms", { 
-      data: {
-        "issueDateInterval": {
-          "startDate": `${this.startDate}`,
-          "endDate": `${this.endDate}`
-        },
-        "searchContext": {
-          "targetSearchEntitiesContext": {
-            "targetSearchEntities": [
-              {
-                "type": "company",
-                "sparkId": null,
-                "entityId": null,
-                "inn": `${this.inn}`,  //7710137066
-                "maxFullness": `${this.seachingFormChecks.maxFullness}`,
-                "inBusinessNews": `${this.seachingFormChecks.inBusinessNews}`
-              }
-            ],
-            "onlyMainRole": `${this.seachingFormChecks.onlyMainRole}`,
-            "tonality": `${this.tonality}`,
-            "onlyWithRiskFactors": `${this.seachingFormChecks.onlyWithRiskFactors}`,
-            "riskFactors": {
-              "and": [],
-              "or": [],
-              "not": []
+    // console.log("ИНН: " + this.inn);
+    // console.log("Тональность: " + this.tonality);
+    // console.log("Лимит (пока в сеттер просто передаётся строчка из допустимых значений): " + this.limit);
+    // console.log("Дата начала: " + this.startDate);
+    // console.log("Дата начала: " + this.endDate);
+    axios
+    .post("https://gateway.scan-interfax.ru/api/v1/objectsearch/histograms", {
+      issueDateInterval: {
+        startDate: this.startDate,
+        endDate: this.endDate,
+      },
+      searchContext: {
+        targetSearchEntitiesContext: {
+          targetSearchEntities: [
+            {
+              type: "company",
+              sparkId: null,
+              entityId: null,
+              inn: this.inn, //7710137066
+              maxFullness: this.seachingFormChecks.maxFullness,
+              inBusinessNews: this.seachingFormChecks.inBusinessNews,
             },
-            "themes": {
-              "and": [],
-              "or": [],
-              "not": []
-            }
+          ],
+          onlyMainRole: this.seachingFormChecks.onlyMainRole,
+          tonality: `${this.tonality}`,
+          onlyWithRiskFactors: this.seachingFormChecks.onlyWithRiskFactors,
+          riskFactors: {
+            and: [],
+            or: [],
+            not: [],
           },
-          "themesFilter": {
-            "and": [],
-            "or": [],
-            "not": []
-          }
+          themes: {
+            and: [],
+            or: [],
+            not: [],
+          },
         },
-        "searchArea": {
-          "includedSources": [],
-          "excludedSources": [],
-          "includedSourceGroups": [],
-          "excludedSourceGroups": []
+        themesFilter: {
+          and: [],
+          or: [],
+          not: [],
         },
-        "attributeFilters": {
-          "excludeTechNews": `${this.seachingFormChecks.isTechNews}`,
-          "excludeAnnouncements": `${this.seachingFormChecks.isAnnouncement}`,
-          "excludeDigests": `${this.seachingFormChecks.isDigest}`
-        },
-        "similarMode": "duplicates",
-        "limit": `${this.limit}`,
-        "sortType": "sourceInfluence",
-        "sortDirectionType": "desc",
-        "intervalType": "month",
-        "histogramTypes": [
-          "totalDocuments",
-          "riskFactors"
-        ]
-      }
+      },
+      searchArea: {
+        includedSources: [],
+        excludedSources: [],
+        includedSourceGroups: [],
+        excludedSourceGroups: [],
+      },
+      attributeFilters: {
+        excludeTechNews: this.seachingFormChecks.isTechNews,
+        excludeAnnouncements: this.seachingFormChecks.isAnnouncement,
+        excludeDigests: this.seachingFormChecks.isDigest,
+      },
+      similarMode: "duplicates",
+      limit: this.limit,
+      sortType: "sourceInfluence",
+      sortDirectionType: "desc",
+      intervalType: "month",
+      histogramTypes: ["totalDocuments", "riskFactors"],
     })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  };
 
   // Запрос списка ID публикаций
 

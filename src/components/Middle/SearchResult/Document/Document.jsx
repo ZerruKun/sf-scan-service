@@ -13,8 +13,8 @@ const Document = (props) => {
   return (
     <div className={styles.general}>
       {/* {console.log(xml)} */}
-      {console.log(xmlText)}
-      {console.log(xmlImg)}
+      {/* {console.log(xmlText)}
+      {console.log(xmlImg)} */}
       <div className={styles.info}>
         <span className={styles.date}>{props.date}</span>
         <span className={styles.source}>{props.source}</span>

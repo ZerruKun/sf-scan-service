@@ -1,31 +1,35 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from "./Summary.module.css"
 import DateResult from "../DateResult/DateResult"
 import { observer } from 'mobx-react-lite'
 import store from '../../../../store/store'
 
 const Summary = observer(() => {
+  useEffect(() => {
+    console.log("юз эффект")
+  }, [store.summaryResults])
   // Для тестов
-  if(!store.summaryResults.data) {
-    console.log("Пустой ответ!");
-  } else {
-    console.log("Непустой ответ!")
-  }
-  let dates, all, risks = [];
-  dates = store.testSummaryResults.data[0].data.map((el) => el.date.substring(0, 10).split("-").join("."));
-  all = store.testSummaryResults.data[0].data.map((el) => el.value);
-  risks = store.testSummaryResults.data[1].data.map((el) => el.value);
+  // if(!store.summaryResults.data) {
+  //   console.log("Пустой ответ!");
+  // } else {
+  //   console.log("Непустой ответ!")
+  // }
+  // let dates, all, risks = [];
+  // dates = store.testSummaryResults.data[0].data.map((el) => el.date.substring(0, 10).split("-").join("."));
+  // all = store.testSummaryResults.data[0].data.map((el) => el.value);
+  // risks = store.testSummaryResults.data[1].data.map((el) => el.value);
 
   const [minIndex, setMinIndex] = useState(0);
   const [maxIndex, setMaxIndex] = useState(7);
 
   return (
     <div className={styles.general}>
-      {store.testSummaryResults.data.length === 0 ? (
+      {store.summaryResults === {} ? (
         <div>Bub!</div>
       ) : (
         <>
-        <h3>Общая сводка</h3>
+        <div>Дата непустая!</div>
+        {/* <h3>Общая сводка</h3>
         <p>Найдено <span className={styles.resultsCount}>4221</span> вариантов</p>
         <div className={styles.resultsBlock}>
           <button 
@@ -63,7 +67,7 @@ const Summary = observer(() => {
             onClick={() => {setMinIndex((index) => index + 1); setMaxIndex((index) => index + 1)}}
           >
           </button>
-        </div>
+        </div> */}
         </>
       )}
     </div>
