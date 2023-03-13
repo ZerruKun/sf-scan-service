@@ -5,32 +5,35 @@ import { observer } from 'mobx-react-lite'
 import store from '../../../../store/store'
 
 const Summary = observer(() => {
-  useEffect(() => {
-    console.log("юз эффект")
-  }, [store.summaryResults])
-  // Для тестов
-  // if(!store.summaryResults.data) {
-  //   console.log("Пустой ответ!");
-  // } else {
-  //   console.log("Непустой ответ!")
-  // }
-  // let dates, all, risks = [];
-  // dates = store.testSummaryResults.data[0].data.map((el) => el.date.substring(0, 10).split("-").join("."));
-  // all = store.testSummaryResults.data[0].data.map((el) => el.value);
-  // risks = store.testSummaryResults.data[1].data.map((el) => el.value);
-
+  
   const [minIndex, setMinIndex] = useState(0);
-  const [maxIndex, setMaxIndex] = useState(7);
+  const [maxIndex, setMaxIndex] = useState(0);
+  const [isNextArrowUp, setIsNextArrowUp] = useState(true);
+
+  useEffect(() => {
+    if(store.summaryResults.status === 200 && store.summaryResults.data !== []) {
+      store.setSummaryDates(store.summaryResults.data.data[0].data.map((el) => el.date.substring(0, 10).split("-").join(".")));
+      store.setSummaryAll(store.summaryResults.data.data[0].data.map((el) => el.value));
+      store.setSummaryRisks(store.summaryResults.data.data[1].data.map((el) => el.value));
+      store.setSummaryArticles(store.summaryAll.reduce((a, b) => {return a + b;}) + store.summaryRisks.reduce((a, b) => {return a + b;}));
+      if(store.summaryDates.length <= 8) {
+        setMaxIndex(store.summaryDates.length);
+        setIsNextArrowUp(false);
+      } else {
+        setMaxIndex(7);
+        setIsNextArrowUp(false);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [store.summaryResults])
 
   return (
     <div className={styles.general}>
-      {store.summaryResults === {} ? (
-        <div>Bub!</div>
-      ) : (
+      <h3>Общая сводка</h3>
+      {store.summaryResults.status === 200 && store.summaryResults.data !== [] ? (
         <>
-        <div>Дата непустая!</div>
-        {/* <h3>Общая сводка</h3>
-        <p>Найдено <span className={styles.resultsCount}>4221</span> вариантов</p>
+        {/* <div>Не пустая!</div> */}
+        <p>Найдено <span className={styles.resultsCount}>{store.summaryArticles}</span> вариантов</p>
         <div className={styles.resultsBlock}>
           <button 
             className={minIndex === 0 ? `${styles.buttonLeft} ${styles.inactive}` : `${styles.buttonLeft}`}
@@ -45,16 +48,16 @@ const Summary = observer(() => {
               <span>Риски</span>
             </div>
             <div className={styles.resultsValues}>
-              {store.testSummaryResults.data[0].data.map((el, index) => {
+              {store.summaryResults.data.data[0].data.map((el, index) => {
                 return (
                   index < minIndex || index > maxIndex ? (
                     <div key={index}></div>
                   ) : (
                     <DateResult 
                     key={index} 
-                    date={dates[index]} 
-                    all={all[index]} 
-                    risks={risks[index]} 
+                    date={store.summaryDates[index]} 
+                    all={store.summaryAll[index]} 
+                    risks={store.summaryRisks[index]} 
                   />
                   )
                 )
@@ -62,13 +65,15 @@ const Summary = observer(() => {
             </div>
           </div>
           <button 
-            className={maxIndex === dates.length - 1 ? `${styles.buttonRight} ${styles.inactive}` : `${styles.buttonRight}`}
-            disabled={maxIndex === dates.length - 1 ? true : false}
+            className={maxIndex === store.summaryDates.length - 1 || isNextArrowUp === false ? `${styles.buttonRight} ${styles.inactive}` : `${styles.buttonRight}`}
+            disabled={maxIndex === store.summaryDates.length - 1 || isNextArrowUp === false ? true : false}
             onClick={() => {setMinIndex((index) => index + 1); setMaxIndex((index) => index + 1)}}
           >
           </button>
-        </div> */}
+        </div>
         </>
+      ) : (
+        <div>Bub!</div>
       )}
     </div>
   )

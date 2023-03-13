@@ -8,8 +8,8 @@ const Document = (props) => {
   let XMLParser = require('react-xml-parser');
   let xml = new XMLParser().parseFromString(props.content);
   let xmlText = xml.getElementsByTagName('sentence');
-  let xmlImg = props.content.match(/https?:\/\/\S+\"/g).toString().replace("\"", "");
-
+  // let xmlImg = props.content.match(/https?:\/\/\S+\"/g).toString().replace("\"", "");
+  let xmlImg = props.content.match(/https?:\/\/\S+"/g).toString().replace("\"", "");
   return (
     <div className={styles.general}>
       {/* {console.log(xml)} */}

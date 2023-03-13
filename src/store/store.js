@@ -22,7 +22,8 @@ class Store {
   inn = null;
   tonality = "any";
   limit = 0;
-  startDate = new Date();
+  // startDate = new Date();
+  startDate = new Date("2022-01-01");
   endDate = new Date();
 
   seachingFormChecks = {
@@ -34,6 +35,13 @@ class Store {
     isAnnouncement: true,
     isDigest: true,
   }
+
+  // Cуммарны результат поиска
+
+  summaryDates = [];
+  summaryAll = [];
+  summaryRisks = [];
+  summaryArticles = 0;
 
   // histogramData = {
   //   "issueDateInterval": {
@@ -530,11 +538,27 @@ class Store {
     }
   }
 
-  //////////
+  // Cеттеры для суммарных результатов
 
   setSummaryResults = (results) => {
     this.summaryResults = results;
   };
+
+  setSummaryDates = (dates) => {
+    this.summaryDates = dates;
+  }
+
+  setSummaryAll = (all) => {
+    this.summaryAll = all;
+  }
+
+  setSummaryRisks = (risks) => {
+    this.summaryRisks = risks;
+  }
+
+  setSummaryArticles = (articles) => {
+    this.summaryArticles = articles;
+  }
 
   /////////
 
@@ -667,7 +691,8 @@ class Store {
       histogramTypes: ["totalDocuments", "riskFactors"],
     })
     .then((response) => {
-      console.log(response);
+      // console.log(response);
+      this.setSummaryResults(response);
     })
     .catch((err) => {
       console.log(err);
@@ -740,7 +765,7 @@ class Store {
       }
     })
       .then((response) => {
-        console.log(response)
+        // console.log(response)
       })
       .catch((err) => {
         console.log(err);
@@ -756,7 +781,7 @@ class Store {
       ids: ["1:0JPQqdGM0JNWCdCzf2Jt0LHQotGV0ZUh0ZbRlBXCt0Je0JHQruKAnDcUXkZQ0YvQscKnehLRnNC1KtGK0Ll9BWLigLo/HXXCrhw="]
     })
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         this.setPublish(response.data);
         // console.log(this.Publishes);
       })
