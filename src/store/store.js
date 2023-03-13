@@ -42,67 +42,9 @@ class Store {
   summaryAll = [];
   summaryRisks = [];
   summaryArticles = 0;
-
-  // histogramData = {
-  //   "issueDateInterval": {
-  //     "startDate": `${this.startDate}`,
-  //     "endDate": `${this.endDate}`
-  //   },
-  //   "searchContext": {
-  //     "targetSearchEntitiesContext": {
-  //       "targetSearchEntities": [
-  //         {
-  //           "type": "company",
-  //           "sparkId": null,
-  //           "entityId": null,
-  //           "inn": `${this.inn}`,  //7710137066
-  //           "maxFullness": `${this.seachingFormChecks.maxFullness}`,
-  //           "inBusinessNews": `${this.seachingFormChecks.inBusinessNews}`
-  //         }
-  //       ],
-  //       "onlyMainRole": `${this.seachingFormChecks.onlyMainRole}`,
-  //       "tonality": `${this.tonality}`,
-  //       "onlyWithRiskFactors": `${this.seachingFormChecks.onlyWithRiskFactors}`,
-  //       "riskFactors": {
-  //         "and": [],
-  //         "or": [],
-  //         "not": []
-  //       },
-  //       "themes": {
-  //         "and": [],
-  //         "or": [],
-  //         "not": []
-  //       }
-  //     },
-  //     "themesFilter": {
-  //       "and": [],
-  //       "or": [],
-  //       "not": []
-  //     }
-  //   },
-  //   "searchArea": {
-  //     "includedSources": [],
-  //     "excludedSources": [],
-  //     "includedSourceGroups": [],
-  //     "excludedSourceGroups": []
-  //   },
-  //   "attributeFilters": {
-  //     "excludeTechNews": `${this.seachingFormChecks.isTechNews}`,
-  //     "excludeAnnouncements": `${this.seachingFormChecks.isAnnouncement}`,
-  //     "excludeDigests": `${this.seachingFormChecks.isDigest}`
-  //   },
-  //   "similarMode": "duplicates",
-  //   "limit": `${this.limit}`,
-  //   "sortType": "sourceInfluence",
-  //   "sortDirectionType": "desc",
-  //   "intervalType": "month",
-  //   "histogramTypes": [
-  //     "totalDocuments",
-  //     "riskFactors"
-  //   ]
-  // };
-
   summaryResults = {};
+
+  // ID публикаций
 
   publishIds = {};
 
@@ -560,7 +502,14 @@ class Store {
     this.summaryArticles = articles;
   }
 
+  // Сеттеры для ID публикаций
+
+  setPublishIds = (ids) => {
+    this.publishIds = ids;
+  }
+
   /////////
+
 
   setPublish = (data) => {
     this.publishes = data;
@@ -704,73 +653,74 @@ class Store {
   getPublishIds = () => {
     // для проверки
     // console.log(this.token);
-    axios.post("https://gateway.scan-interfax.ru/api/v1/objectsearch", { 
-      data: {
-        "issueDateInterval": {
-          "startDate": "2019-01-01T00:00:00+03:00",
-          "endDate": "2023-08-31T23:59:59+03:00"
-        },
-        "searchContext": {
-          "targetSearchEntitiesContext": {
-            "targetSearchEntities": [
-              {
-                "type": "company",
-                "sparkId": null,
-                "entityId": null,
-                "inn": null,
-                "maxFullness": false,
-                "inBusinessNews": null
-              }
-            ],
-            "onlyMainRole": false,
-            "tonality": "any",
-            "onlyWithRiskFactors": false,
-            "riskFactors": {
-              "and": [],
-              "or": [],
-              "not": []
+    axios
+    .post("https://gateway.scan-interfax.ru/api/v1/objectsearch", {
+      issueDateInterval: {
+        startDate: this.startDate,
+        endDate: this.endDate,
+      },
+      searchContext: {
+        targetSearchEntitiesContext: {
+          targetSearchEntities: [
+            {
+              type: "company",
+              sparkId: null,
+              entityId: null,
+              inn: this.inn, //7710137066
+              maxFullness: this.seachingFormChecks.maxFullness,
+              inBusinessNews: this.seachingFormChecks.inBusinessNews,
             },
-            "themes": {
-              "and": [],
-              "or": [],
-              "not": []
-            }
+          ],
+          onlyMainRole: this.seachingFormChecks.onlyMainRole,
+          tonality: `${this.tonality}`,
+          onlyWithRiskFactors: this.seachingFormChecks.onlyWithRiskFactors,
+          riskFactors: {
+            and: [],
+            or: [],
+            not: [],
           },
-          "themesFilter": {
-            "and": [],
-            "or": [],
-            "not": []
-          }
+          themes: {
+            and: [],
+            or: [],
+            not: [],
+          },
         },
-        "searchArea": {
-          "includedSources": [],
-          "excludedSources": [],
-          "includedSourceGroups": [],
-          "excludedSourceGroups": []
+        themesFilter: {
+          and: [],
+          or: [],
+          not: [],
         },
-        "attributeFilters": {
-          "excludeTechNews": false,
-          "excludeAnnouncements": false,
-          "excludeDigests": false
-        },
-        "similarMode": "duplicates",
-        "limit": 1000,
-        "sortType": "sourceInfluence",
-        "sortDirectionType": "desc",
-        "intervalType": "month",
-        "histogramTypes": [
-          "totalDocuments",
-          "riskFactors"
-        ]
-      }
+      },
+      searchArea: {
+        includedSources: [],
+        excludedSources: [],
+        includedSourceGroups: [],
+        excludedSourceGroups: [],
+      },
+      attributeFilters: {
+        excludeTechNews: this.seachingFormChecks.isTechNews,
+        excludeAnnouncements: this.seachingFormChecks.isAnnouncement,
+        excludeDigests: this.seachingFormChecks.isDigest,
+      },
+      similarMode: "duplicates",
+      limit: this.limit,
+      sortType: "sourceInfluence",
+      sortDirectionType: "desc",
+      intervalType: "month",
+      histogramTypes: ["totalDocuments", "riskFactors"],
     })
-      .then((response) => {
-        // console.log(response)
+    .then((response) => {
+      let result = [];
+      response.data.items.map((el) => {
+        result.push(el.encodedId);
       })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
+      this.setPublishIds(result);
+      // this.publishIds.map((el) => {console.log(el)});
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  };
 
   // Получения самих статей 
 
