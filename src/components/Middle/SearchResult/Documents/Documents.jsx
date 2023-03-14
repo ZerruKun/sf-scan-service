@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Document from '../Document/Document'
 import styles from "./Documents.module.css"
 import { observer } from 'mobx-react-lite'
@@ -6,18 +6,48 @@ import store from '../../../../store/store'
 
 
 const Documents = observer(() => {
+
+  const [isAddButtonActive, setIsAddButtonActive] = useState(true);
+  const [nextTen, setNextTen] = useState(10);
   
+  const showNextTen = () => {
+    let firstTen = store.publishIds.slice(nextTen, (nextTen + 10));
+    store.getNextTenPublishes(firstTen);
+    setNextTen(prev => prev + 10);
+  }
+
+  useEffect(() => {
+    if(nextTen >= store.publishIds.length) {
+      setIsAddButtonActive(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [nextTen])
+
   // Для проверки
   useEffect(() => {
-    store.getPublishes();
-  }, []);
+    if(store.publishIds[0] !== undefined) {
+      if(store.publishIds.length <= 10) {
+        store.getLessTenPublishes();
+        setIsAddButtonActive(false);
+        return;
+      }
+      if(store.publishIds.length > 10) {
+        let firstTen = store.publishIds.slice(0, nextTen);
+        store.getNextTenPublishes(firstTen);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [store.publishIds]);
+
+
 
   return (
     <div className={styles.general}>
       <h3>Список документов</h3>
       <div className={styles.documents}>
-        {store.publishes.map((article) => {
+        {store.publishes.map((article, index) => {
           return(
+            article.ok === undefined ? <div key={index}></div> :
             <Document 
               key={article.ok.id}
               date={article.ok.issueDate.substring(0, 10).split("-").join(".")} 
@@ -33,7 +63,12 @@ const Documents = observer(() => {
           )
         })}
       </div>
-      <button className={styles.more}>Показать больше</button>
+      <button 
+        className={isAddButtonActive ? styles.more : styles.hidden} 
+        onClick={showNextTen}
+      >
+        Показать больше
+      </button>
     </div>
   )
 })

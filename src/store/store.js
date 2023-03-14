@@ -22,7 +22,8 @@ class Store {
   inn = null;
   tonality = "any";
   limit = 0;
-  startDate = new Date();
+  // startDate = new Date();
+  startDate = new Date("2022-01-01");
   endDate = new Date();
 
   seachingFormChecks = {
@@ -35,66 +36,15 @@ class Store {
     isDigest: true,
   }
 
-  // histogramData = {
-  //   "issueDateInterval": {
-  //     "startDate": `${this.startDate}`,
-  //     "endDate": `${this.endDate}`
-  //   },
-  //   "searchContext": {
-  //     "targetSearchEntitiesContext": {
-  //       "targetSearchEntities": [
-  //         {
-  //           "type": "company",
-  //           "sparkId": null,
-  //           "entityId": null,
-  //           "inn": `${this.inn}`,  //7710137066
-  //           "maxFullness": `${this.seachingFormChecks.maxFullness}`,
-  //           "inBusinessNews": `${this.seachingFormChecks.inBusinessNews}`
-  //         }
-  //       ],
-  //       "onlyMainRole": `${this.seachingFormChecks.onlyMainRole}`,
-  //       "tonality": `${this.tonality}`,
-  //       "onlyWithRiskFactors": `${this.seachingFormChecks.onlyWithRiskFactors}`,
-  //       "riskFactors": {
-  //         "and": [],
-  //         "or": [],
-  //         "not": []
-  //       },
-  //       "themes": {
-  //         "and": [],
-  //         "or": [],
-  //         "not": []
-  //       }
-  //     },
-  //     "themesFilter": {
-  //       "and": [],
-  //       "or": [],
-  //       "not": []
-  //     }
-  //   },
-  //   "searchArea": {
-  //     "includedSources": [],
-  //     "excludedSources": [],
-  //     "includedSourceGroups": [],
-  //     "excludedSourceGroups": []
-  //   },
-  //   "attributeFilters": {
-  //     "excludeTechNews": `${this.seachingFormChecks.isTechNews}`,
-  //     "excludeAnnouncements": `${this.seachingFormChecks.isAnnouncement}`,
-  //     "excludeDigests": `${this.seachingFormChecks.isDigest}`
-  //   },
-  //   "similarMode": "duplicates",
-  //   "limit": `${this.limit}`,
-  //   "sortType": "sourceInfluence",
-  //   "sortDirectionType": "desc",
-  //   "intervalType": "month",
-  //   "histogramTypes": [
-  //     "totalDocuments",
-  //     "riskFactors"
-  //   ]
-  // };
+  // Cуммарны результат поиска
 
+  summaryDates = [];
+  summaryAll = [];
+  summaryRisks = [];
+  summaryArticles = 0;
   summaryResults = {};
+
+  // ID публикаций
 
   publishIds = {};
 
@@ -530,11 +480,33 @@ class Store {
     }
   }
 
-  //////////
+  // Cеттеры для суммарных результатов
 
   setSummaryResults = (results) => {
     this.summaryResults = results;
   };
+
+  setSummaryDates = (dates) => {
+    this.summaryDates = dates;
+  }
+
+  setSummaryAll = (all) => {
+    this.summaryAll = all;
+  }
+
+  setSummaryRisks = (risks) => {
+    this.summaryRisks = risks;
+  }
+
+  setSummaryArticles = (articles) => {
+    this.summaryArticles = articles;
+  }
+
+  // Сеттеры для ID публикаций
+
+  setPublishIds = (ids) => {
+    this.publishIds = ids;
+  }
 
   /////////
 
@@ -605,167 +577,181 @@ class Store {
 
   getHistogram = () => {
     // Для теста
-    console.log("ИНН: " + this.inn);
-    console.log("Тональность: " + this.tonality);
-    console.log("Лимит (пока в сеттер просто передаётся строчка из допустимых значений): " + this.limit);
-    console.log("Дата начала: " + this.startDate);
-    console.log("Дата начала: " + this.endDate);
-    axios.post("https://gateway.scan-interfax.ru/api/v1/objectsearch/histograms", { 
-      data: {
-        "issueDateInterval": {
-          "startDate": `${this.startDate}`,
-          "endDate": `${this.endDate}`
-        },
-        "searchContext": {
-          "targetSearchEntitiesContext": {
-            "targetSearchEntities": [
-              {
-                "type": "company",
-                "sparkId": null,
-                "entityId": null,
-                "inn": `${this.inn}`,  //7710137066
-                "maxFullness": `${this.seachingFormChecks.maxFullness}`,
-                "inBusinessNews": `${this.seachingFormChecks.inBusinessNews}`
-              }
-            ],
-            "onlyMainRole": `${this.seachingFormChecks.onlyMainRole}`,
-            "tonality": `${this.tonality}`,
-            "onlyWithRiskFactors": `${this.seachingFormChecks.onlyWithRiskFactors}`,
-            "riskFactors": {
-              "and": [],
-              "or": [],
-              "not": []
+    // console.log("ИНН: " + this.inn);
+    // console.log("Тональность: " + this.tonality);
+    // console.log("Лимит (пока в сеттер просто передаётся строчка из допустимых значений): " + this.limit);
+    // console.log("Дата начала: " + this.startDate);
+    // console.log("Дата начала: " + this.endDate);
+    axios
+    .post("https://gateway.scan-interfax.ru/api/v1/objectsearch/histograms", {
+      issueDateInterval: {
+        startDate: this.startDate,
+        endDate: this.endDate,
+      },
+      searchContext: {
+        targetSearchEntitiesContext: {
+          targetSearchEntities: [
+            {
+              type: "company",
+              sparkId: null,
+              entityId: null,
+              inn: this.inn, //7710137066
+              maxFullness: this.seachingFormChecks.maxFullness,
+              inBusinessNews: this.seachingFormChecks.inBusinessNews,
             },
-            "themes": {
-              "and": [],
-              "or": [],
-              "not": []
-            }
+          ],
+          onlyMainRole: this.seachingFormChecks.onlyMainRole,
+          tonality: `${this.tonality}`,
+          onlyWithRiskFactors: this.seachingFormChecks.onlyWithRiskFactors,
+          riskFactors: {
+            and: [],
+            or: [],
+            not: [],
           },
-          "themesFilter": {
-            "and": [],
-            "or": [],
-            "not": []
-          }
+          themes: {
+            and: [],
+            or: [],
+            not: [],
+          },
         },
-        "searchArea": {
-          "includedSources": [],
-          "excludedSources": [],
-          "includedSourceGroups": [],
-          "excludedSourceGroups": []
+        themesFilter: {
+          and: [],
+          or: [],
+          not: [],
         },
-        "attributeFilters": {
-          "excludeTechNews": `${this.seachingFormChecks.isTechNews}`,
-          "excludeAnnouncements": `${this.seachingFormChecks.isAnnouncement}`,
-          "excludeDigests": `${this.seachingFormChecks.isDigest}`
-        },
-        "similarMode": "duplicates",
-        "limit": `${this.limit}`,
-        "sortType": "sourceInfluence",
-        "sortDirectionType": "desc",
-        "intervalType": "month",
-        "histogramTypes": [
-          "totalDocuments",
-          "riskFactors"
-        ]
-      }
+      },
+      searchArea: {
+        includedSources: [],
+        excludedSources: [],
+        includedSourceGroups: [],
+        excludedSourceGroups: [],
+      },
+      attributeFilters: {
+        excludeTechNews: this.seachingFormChecks.isTechNews,
+        excludeAnnouncements: this.seachingFormChecks.isAnnouncement,
+        excludeDigests: this.seachingFormChecks.isDigest,
+      },
+      similarMode: "duplicates",
+      limit: this.limit,
+      sortType: "sourceInfluence",
+      sortDirectionType: "desc",
+      intervalType: "month",
+      histogramTypes: ["totalDocuments", "riskFactors"],
     })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
+    .then((response) => {
+      // console.log(response);
+      this.setSummaryResults(response);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  };
 
   // Запрос списка ID публикаций
 
   getPublishIds = () => {
     // для проверки
     // console.log(this.token);
-    axios.post("https://gateway.scan-interfax.ru/api/v1/objectsearch", { 
-      data: {
-        "issueDateInterval": {
-          "startDate": "2019-01-01T00:00:00+03:00",
-          "endDate": "2023-08-31T23:59:59+03:00"
-        },
-        "searchContext": {
-          "targetSearchEntitiesContext": {
-            "targetSearchEntities": [
-              {
-                "type": "company",
-                "sparkId": null,
-                "entityId": null,
-                "inn": null,
-                "maxFullness": false,
-                "inBusinessNews": null
-              }
-            ],
-            "onlyMainRole": false,
-            "tonality": "any",
-            "onlyWithRiskFactors": false,
-            "riskFactors": {
-              "and": [],
-              "or": [],
-              "not": []
+    axios
+    .post("https://gateway.scan-interfax.ru/api/v1/objectsearch", {
+      issueDateInterval: {
+        startDate: this.startDate,
+        endDate: this.endDate,
+      },
+      searchContext: {
+        targetSearchEntitiesContext: {
+          targetSearchEntities: [
+            {
+              type: "company",
+              sparkId: null,
+              entityId: null,
+              inn: this.inn, //7710137066
+              maxFullness: this.seachingFormChecks.maxFullness,
+              inBusinessNews: this.seachingFormChecks.inBusinessNews,
             },
-            "themes": {
-              "and": [],
-              "or": [],
-              "not": []
-            }
+          ],
+          onlyMainRole: this.seachingFormChecks.onlyMainRole,
+          tonality: `${this.tonality}`,
+          onlyWithRiskFactors: this.seachingFormChecks.onlyWithRiskFactors,
+          riskFactors: {
+            and: [],
+            or: [],
+            not: [],
           },
-          "themesFilter": {
-            "and": [],
-            "or": [],
-            "not": []
-          }
+          themes: {
+            and: [],
+            or: [],
+            not: [],
+          },
         },
-        "searchArea": {
-          "includedSources": [],
-          "excludedSources": [],
-          "includedSourceGroups": [],
-          "excludedSourceGroups": []
+        themesFilter: {
+          and: [],
+          or: [],
+          not: [],
         },
-        "attributeFilters": {
-          "excludeTechNews": false,
-          "excludeAnnouncements": false,
-          "excludeDigests": false
-        },
-        "similarMode": "duplicates",
-        "limit": 1000,
-        "sortType": "sourceInfluence",
-        "sortDirectionType": "desc",
-        "intervalType": "month",
-        "histogramTypes": [
-          "totalDocuments",
-          "riskFactors"
-        ]
-      }
+      },
+      searchArea: {
+        includedSources: [],
+        excludedSources: [],
+        includedSourceGroups: [],
+        excludedSourceGroups: [],
+      },
+      attributeFilters: {
+        excludeTechNews: this.seachingFormChecks.isTechNews,
+        excludeAnnouncements: this.seachingFormChecks.isAnnouncement,
+        excludeDigests: this.seachingFormChecks.isDigest,
+      },
+      similarMode: "duplicates",
+      limit: this.limit,
+      sortType: "sourceInfluence",
+      sortDirectionType: "desc",
+      intervalType: "month",
+      histogramTypes: ["totalDocuments", "riskFactors"],
     })
-      .then((response) => {
-        console.log(response)
+    .then((response) => {
+      let result = [];
+      response.data.items.map((el) => {
+        return result.push(el.encodedId);
       })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
+      this.setPublishIds(result);
+      this.publishIds.map((el) => {console.log(el)});
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  };
 
-  // Получения самих статей 
+  // Получения первичных статей 
 
-  getPublishes = () => {
+  getLessTenPublishes = () => {
     // для проверки
     // console.log(this.token); 
     axios.post("https://gateway.scan-interfax.ru/api/v1/documents", { 
-      ids: ["1:0JPQqdGM0JNWCdCzf2Jt0LHQotGV0ZUh0ZbRlBXCt0Je0JHQruKAnDcUXkZQ0YvQscKnehLRnNC1KtGK0Ll9BWLigLo/HXXCrhw="]
+      ids: this.publishIds
     })
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         this.setPublish(response.data);
         // console.log(this.Publishes);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
+      })
+  }
+
+  getNextTenPublishes = (articles) => {
+    // для проверки
+    // console.log(this.token); 
+    axios.post("https://gateway.scan-interfax.ru/api/v1/documents", { 
+      ids: articles
+    })
+      .then((response) => {
+        console.log(response.data);
+        this.setPublish([...this.publishes, ...response.data]);
+        // console.log(this.Publishes);
+      })
+      .catch((err) => {
+        // console.log(err);
       })
   }
 
