@@ -723,11 +723,27 @@ class Store {
 
   // Получения первичных статей 
 
-  getInitPublishes = () => {
+  getLessTenPublishes = () => {
     // для проверки
     // console.log(this.token); 
     axios.post("https://gateway.scan-interfax.ru/api/v1/documents", { 
-      ids: [`${this.publishIds[0]}`, `${this.publishIds[1]}`]
+      ids: this.publishIds
+    })
+      .then((response) => {
+        // console.log(response.data);
+        this.setPublish(response.data);
+        // console.log(this.Publishes);
+      })
+      .catch((err) => {
+        // console.log(err);
+      })
+  }
+
+  getNextTenPublishes = (articles) => {
+    // для проверки
+    // console.log(this.token); 
+    axios.post("https://gateway.scan-interfax.ru/api/v1/documents", { 
+      ids: articles
     })
       .then((response) => {
         // console.log(response.data);

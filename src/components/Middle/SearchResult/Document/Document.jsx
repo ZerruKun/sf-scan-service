@@ -8,7 +8,6 @@ const Document = (props) => {
   let XMLParser = require('react-xml-parser');
   let xml = new XMLParser().parseFromString(props.content);
   let xmlText = xml.getElementsByTagName('sentence');
-  // let xmlImg = props.content.match(/https?:\/\/\S+\"/g).toString().replace("\"", "");
   let xmlImg = "";
   if(props.content.match(/https?:\/\/\S+"/g) === null) {
     xmlImg = "";
@@ -18,8 +17,8 @@ const Document = (props) => {
   return (
     <div className={styles.general}>
       {/* {console.log(xml)} */}
-      {console.log(xmlText)}
-      {console.log(xmlImg)} 
+      {/* {console.log(xmlText)} */}
+      {/* {console.log(xmlImg)}  */}
       <div className={styles.info}>
         <span className={styles.date}>{props.date}</span>
         <span className={styles.source}>{props.source}</span>

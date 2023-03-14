@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Document from '../Document/Document'
 import styles from "./Documents.module.css"
 import { observer } from 'mobx-react-lite'
@@ -6,14 +6,34 @@ import store from '../../../../store/store'
 
 
 const Documents = observer(() => {
+
+  const [isAddButtonActive, setIsAddButtonActive] = useState(true);
+  const [nextTen, setNextTen] = useState(10);
   
   // Для проверки
   useEffect(() => {
-    if(store.publishIds[0] !== undefined && store.publishIds[1] !== undefined) {
-      store.getInitPublishes();
+    if(store.publishIds[0] !== undefined) {
+      if(store.publishIds.length <= 10) {
+        store.getLessTenPublishes();
+        setIsAddButtonActive(false);
+        return;
+      }
+      if(store.publishIds.length > 10) {
+        let firstTen = store.publishIds.slice(0, nextTen);
+        store.getNextTenPublishes(firstTen);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [store.publishIds]);
+
+  const showNextTen = () => {
+    if(nextTen >= store.publishIds.length) {
+      setIsAddButtonActive(false);
+    }
+    let firstTen = store.publishIds.slice(nextTen, (nextTen + 10));
+    store.getNextTenPublishes(firstTen);
+    setNextTen(prev => prev + 10);
+  }
 
   return (
     <div className={styles.general}>
@@ -37,7 +57,12 @@ const Documents = observer(() => {
           )
         })}
       </div>
-      <button className={styles.more}>Показать больше</button>
+      <button 
+        className={isAddButtonActive ? styles.more : styles.hidden} 
+        onClick={showNextTen}
+      >
+        Показать больше
+      </button>
     </div>
   )
 })
