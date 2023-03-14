@@ -9,12 +9,17 @@ const Document = (props) => {
   let xml = new XMLParser().parseFromString(props.content);
   let xmlText = xml.getElementsByTagName('sentence');
   // let xmlImg = props.content.match(/https?:\/\/\S+\"/g).toString().replace("\"", "");
-  let xmlImg = props.content.match(/https?:\/\/\S+"/g).toString().replace("\"", "");
+  let xmlImg = "";
+  if(props.content.match(/https?:\/\/\S+"/g) === null) {
+    xmlImg = "";
+  } else {
+    xmlImg = props.content.match(/https?:\/\/\S+"/g).toString().replace("\"", "");
+  }
   return (
     <div className={styles.general}>
       {/* {console.log(xml)} */}
-      {/* {console.log(xmlText)}
-      {console.log(xmlImg)} */}
+      {console.log(xmlText)}
+      {console.log(xmlImg)} 
       <div className={styles.info}>
         <span className={styles.date}>{props.date}</span>
         <span className={styles.source}>{props.source}</span>
@@ -24,7 +29,7 @@ const Document = (props) => {
       {props.isAnnouncement ? <span className={styles.kind}>Объявление</span> : <></>}
       {props.isDigest ? <span className={styles.kind}>Дайджест</span> : <></>}
       <div className={styles.imageContainer}>
-        <img src={xmlImg} alt="test" />
+        <img src={xmlImg} alt="Картинка отсутсвует" />
       </div>
       <div className={styles.text}>
         {xmlText.map((paragraph, index) => {

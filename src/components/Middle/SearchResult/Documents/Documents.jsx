@@ -9,15 +9,19 @@ const Documents = observer(() => {
   
   // Для проверки
   useEffect(() => {
-    store.getPublishes();
-  }, []);
+    if(store.publishIds[0] !== undefined && store.publishIds[1] !== undefined) {
+      store.getInitPublishes();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [store.publishIds]);
 
   return (
     <div className={styles.general}>
       <h3>Список документов</h3>
       <div className={styles.documents}>
-        {store.publishes.map((article) => {
+        {store.publishes.map((article, index) => {
           return(
+            article.ok === undefined ? <div key={index}></div> :
             <Document 
               key={article.ok.id}
               date={article.ok.issueDate.substring(0, 10).split("-").join(".")} 

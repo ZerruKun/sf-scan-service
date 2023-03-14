@@ -510,7 +510,6 @@ class Store {
 
   /////////
 
-
   setPublish = (data) => {
     this.publishes = data;
   }
@@ -712,23 +711,23 @@ class Store {
     .then((response) => {
       let result = [];
       response.data.items.map((el) => {
-        result.push(el.encodedId);
+        return result.push(el.encodedId);
       })
       this.setPublishIds(result);
-      // this.publishIds.map((el) => {console.log(el)});
+      this.publishIds.map((el) => {console.log(el)});
     })
     .catch((err) => {
       console.log(err);
     });
   };
 
-  // Получения самих статей 
+  // Получения первичных статей 
 
-  getPublishes = () => {
+  getInitPublishes = () => {
     // для проверки
     // console.log(this.token); 
     axios.post("https://gateway.scan-interfax.ru/api/v1/documents", { 
-      ids: ["1:0JPQqdGM0JNWCdCzf2Jt0LHQotGV0ZUh0ZbRlBXCt0Je0JHQruKAnDcUXkZQ0YvQscKnehLRnNC1KtGK0Ll9BWLigLo/HXXCrhw="]
+      ids: [`${this.publishIds[0]}`, `${this.publishIds[1]}`]
     })
       .then((response) => {
         // console.log(response.data);
@@ -736,7 +735,7 @@ class Store {
         // console.log(this.Publishes);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       })
   }
 

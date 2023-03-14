@@ -29,8 +29,8 @@ const SearchingForm = observer(() => {
     store.setLimit(data.limit);
     // console.log("Поиск, обязательные данные, которые из стора");
     store.getHistogram(); 
-    store.getPublishIds(); 
-    store.getPublishes();
+    store.getPublishIds();
+    // store.getInitPublishes();
     navigate("/result");
   }
 
