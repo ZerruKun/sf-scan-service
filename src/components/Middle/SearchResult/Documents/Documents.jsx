@@ -10,6 +10,19 @@ const Documents = observer(() => {
   const [isAddButtonActive, setIsAddButtonActive] = useState(true);
   const [nextTen, setNextTen] = useState(10);
   
+  const showNextTen = () => {
+    let firstTen = store.publishIds.slice(nextTen, (nextTen + 10));
+    store.getNextTenPublishes(firstTen);
+    setNextTen(prev => prev + 10);
+  }
+
+  useEffect(() => {
+    if(nextTen >= store.publishIds.length) {
+      setIsAddButtonActive(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [nextTen])
+
   // Для проверки
   useEffect(() => {
     if(store.publishIds[0] !== undefined) {
@@ -26,14 +39,7 @@ const Documents = observer(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [store.publishIds]);
 
-  const showNextTen = () => {
-    if(nextTen >= store.publishIds.length) {
-      setIsAddButtonActive(false);
-    }
-    let firstTen = store.publishIds.slice(nextTen, (nextTen + 10));
-    store.getNextTenPublishes(firstTen);
-    setNextTen(prev => prev + 10);
-  }
+
 
   return (
     <div className={styles.general}>

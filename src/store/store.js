@@ -746,8 +746,8 @@ class Store {
       ids: articles
     })
       .then((response) => {
-        // console.log(response.data);
-        this.setPublish(response.data);
+        console.log(response.data);
+        this.setPublish([...this.publishes, ...response.data]);
         // console.log(this.Publishes);
       })
       .catch((err) => {
