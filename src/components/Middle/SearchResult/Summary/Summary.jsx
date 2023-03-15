@@ -18,7 +18,6 @@ const Summary = observer(() => {
   const mediumScreen = window.matchMedia('(min-width: 768px) and (max-width: 1299px)');
   const smallScreen = window.matchMedia('(max-width: 767px)');
 
-
   // Адаптив слайдера
 
   useEffect(() => {
