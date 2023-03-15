@@ -6,9 +6,62 @@ import store from '../../../../store/store'
 
 const Summary = observer(() => {
   
+  // Внутренние состояния для слайдера
+
   const [minIndex, setMinIndex] = useState(0);
   const [maxIndex, setMaxIndex] = useState(0);
   const [isNextArrowUp, setIsNextArrowUp] = useState(true);
+
+  // Внутренние состояния для адаптива слайдера
+
+  const bigScreen = window.matchMedia('(min-width: 1300px) ');
+  const mediumScreen = window.matchMedia('(min-width: 768px) and (max-width: 1299px)');
+  const smallScreen = window.matchMedia('(max-width: 767px)');
+
+
+  // Адаптив слайдера
+
+  useEffect(() => {
+    const onResize = () => {
+      if(bigScreen.matches && store.summaryDates.length > 8) {
+        setMinIndex(0);
+        setMaxIndex(7);
+        setIsNextArrowUp(true);
+        return;
+      }
+      if(bigScreen.matches && store.summaryDates.length <= 8) {
+        setMinIndex(0);
+        setMaxIndex(store.summaryDates.length);
+        setIsNextArrowUp(false);
+        return;
+      }
+      if(mediumScreen.matches){
+        setMinIndex(0);
+        setMaxIndex(3);
+        setIsNextArrowUp(true);
+        return;
+      }
+      if(smallScreen.matches){
+        setMinIndex(0);
+        setMaxIndex(0);
+        setIsNextArrowUp(true);
+        return;
+      }
+    }
+    bigScreen.addListener(onResize);
+    mediumScreen.addListener(onResize);
+    smallScreen.addListener(onResize);
+    onResize();
+    return () => {
+      bigScreen.removeListener(onResize);
+      mediumScreen.removeListener(onResize);
+      smallScreen.removeListener(onResize);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bigScreen.matches, mediumScreen.matches, smallScreen.matches, store.summaryDates.length]);
+  
+
+  // Для наполнения слайдера
 
   useEffect(() => {
     if(store.summaryResults.status === 200 && store.summaryResults.data !== []) {
@@ -16,13 +69,6 @@ const Summary = observer(() => {
       store.setSummaryAll(store.summaryResults.data.data[0].data.map((el) => el.value));
       store.setSummaryRisks(store.summaryResults.data.data[1].data.map((el) => el.value));
       store.setSummaryArticles(store.summaryAll.reduce((a, b) => {return a + b;}) + store.summaryRisks.reduce((a, b) => {return a + b;}));
-      if(store.summaryDates.length <= 8) {
-        setMaxIndex(store.summaryDates.length);
-        setIsNextArrowUp(false);
-      } else {
-        setMaxIndex(7);
-        setIsNextArrowUp(false);
-      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [store.summaryResults])
