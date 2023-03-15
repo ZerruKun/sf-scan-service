@@ -57,10 +57,15 @@ const SearchingForm = observer(() => {
             <span>{errors?.inn && <p>Введите корректные данные</p>}</span>
             <label className={styles.label}>
                 Тональность
-                <select className={styles.select}>
-                    <option>Любая</option>
-                    <option>Позитивная</option>
-                    <option>Негативная</option>
+                <select 
+                    className={styles.select}
+                    onChange={(e) => {
+                        store.setTonality(e.target.value);
+                    }}
+                >
+                    <option value={"any"}>Любая</option>
+                    <option value={"positive"}>Позитивная</option>
+                    <option value={"negative"}>Негативная</option>
                 </select>
             </label>
             <label className={styles.label}>
