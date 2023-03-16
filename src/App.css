@@ -22,3 +22,9 @@ body {
     flex-direction: column;
     margin: 0px auto;
 }
+
+@media screen and (max-width: 1300px) {
+    body {
+        margin: 0 10px;
+    }
+}
