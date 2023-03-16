@@ -23,9 +23,11 @@ const Authorization = observer(() => {
 
   return (
     <div className={styles.general}>
-      <Discription />
+      <div className={styles.discriptionNAuth}>
+        <Discription />
+        <AuthForm />
+      </div>
       <KeyImage />
-      <AuthForm />
     </div>
   )
 })
