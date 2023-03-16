@@ -93,6 +93,7 @@
     }
 
     .image {
+        margin-bottom: 30px;
         height: 347px;
         background-size: contain;
         background-position: 50% 50%;
