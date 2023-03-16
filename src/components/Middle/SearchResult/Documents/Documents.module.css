@@ -35,3 +35,14 @@
 .hidden {
     display: none;
 }
+
+@media screen and (max-width: 880px) {
+    .documents {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .general h3{
+        margin-bottom: 34px;
+    }
+}
