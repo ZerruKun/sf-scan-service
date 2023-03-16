@@ -21,3 +21,20 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+@media screen and (max-width: 630px) {
+    .general {
+        align-self: center;
+    }
+
+    .document {
+        width: 59px;
+        height: 75px;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .folders {
+        display: none;
+    }
+}

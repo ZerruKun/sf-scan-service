@@ -26,7 +26,7 @@
     width: 242px;
     height: 43px;
     margin-top: 20px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     padding: 13px 22px;
     font-size: 14px;
     line-height: 17px;
@@ -51,6 +51,18 @@
     text-align: center;
     opacity: 0.4;
     color: #949494;
+}
+
+.errorMessage {
+    height: 20px;
+    margin-bottom: 10px;
+    font-size: 12px;
+    line-height: 15px;
+    color: #FF5959
+}
+
+.noErrorSelect {
+    margin-bottom: 30px;
 }
 
 .dates {
@@ -138,4 +150,41 @@ input::-webkit-inner-spin-button {
 input[type=number] {
     appearance: textfield;
     -moz-appearance: textfield;
+}
+
+@media screen and (max-width: 1150px) {
+    .general {
+        max-width: 500px;
+        margin-bottom: 37px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .dates {
+        min-height: 130px;
+        margin-bottom: 40px;
+        flex-direction: column;
+    }
+
+    .submitInput,
+    .buttonSection span {
+        align-self: flex-start;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .general {
+        align-items: center;
+        padding: 30px 10px;
+    }
+
+    .submitInput,
+    .buttonSection span {
+        align-self: center;
+    }
+
+    /* Если правильно понимаю, то для маленького разрешения секция с галочками отключается */
+    .checksSection {
+        display: none;
+    }
 }
