@@ -29,6 +29,10 @@
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
 }
 
+.discription {
+    position: relative;
+}
+
 .beginner .discription,
 .pro .discription,
 .business .discription {
@@ -62,6 +66,30 @@
 .business .discription p {
     font-size: 18px;
     line-height: 22px;
+}
+
+.lamp,
+.target,
+.notebook {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 70px;
+    height: 70px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.lamp {
+    background-image: url("../../../../images/landing/lamp.png");
+}
+
+.target {
+    background-image: url("../../../../images/landing/target.png");
+}
+
+.notebook {
+    background-image: url("../../../../images/landing/notebook.png");
 }
 
 .tariffNow {
@@ -143,4 +171,41 @@
 .detailButton {
     color: #FFFFFF;
     background-color: #5970FF;
+}
+
+.currentTariff {
+    position: relative;
+}
+
+.tariffNow {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+
+@media screen and (max-width: 1080px) {
+    .general {
+        margin-bottom: 43px;
+    }
+
+    .general h2 {
+        margin-bottom: 37px;
+        font-size: 28px;
+        line-height: 34px;
+    }
+
+    .tariffs {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .beginner, 
+    .pro {
+        margin-bottom: 43px;
+    }
+
+    .detailedDiscription p {
+        margin-bottom: 36px;
+    }
 }

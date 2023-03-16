@@ -38,6 +38,8 @@ const SearchingForm = observer(() => {
     <form className={styles.general} onSubmit={handleSubmit(onFormSubmit)}>
         <div className={styles.leftSide}>
             <label className={styles.label}>
+                {/* Маска по ссылке из задания работает криво*/}
+                {/* Выполнена простая проверка на цифры и их количество */}
                 ИНН компании *
                 <input 
                     className={styles.textInput} 
@@ -46,19 +48,20 @@ const SearchingForm = observer(() => {
                     {...register("inn", {
                         required: true, 
                         minLength: 10,
+                        maxLength: 10,
                         pattern:{
                             valueAsNumber: true,
                             value: /^(?:0\.(?:0[0-9]|[0-9]\d?)|[0-9]\d*(?:\.\d{1,2})?)(?:e[+-]?\d+)?$/
                         },
                     })}
                 />
+                <span className={styles.errorMessage}>{errors?.inn && <p>Введите корректные данные</p>}</span>
             </label>
             {/* Test */}
-            <span>{errors?.inn && <p>Введите корректные данные</p>}</span>
             <label className={styles.label}>
                 Тональность
                 <select 
-                    className={styles.select}
+                    className={`${styles.select} ${styles.noErrorSelect}`}
                     onChange={(e) => {
                         store.setTonality(e.target.value);
                     }}
@@ -83,6 +86,7 @@ const SearchingForm = observer(() => {
                         valueAsNumber: true,
                     })}
                 />
+                <span className={styles.errorMessage}>{errors?.limit && <p>Введите корректные данные</p>}</span>
             </label>
             <label className={styles.label}>
                 Диапазон поиска *

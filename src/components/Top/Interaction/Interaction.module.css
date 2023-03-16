@@ -6,12 +6,6 @@
     align-items: center;
 }
 
-@media screen and (max-width: 1200px) {
-    .general {
-        margin: 0 10px;
-    }
-}
-
 @media screen and (max-width: 765px) {
     .general {
         max-width: 175px;

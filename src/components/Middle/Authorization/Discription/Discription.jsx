@@ -3,9 +3,9 @@ import styles from "./Discription.module.css"
 
 const Discription = () => {
   return (
-    <h1 className={styles.general}>
-      Для оформления подписки на тариф, необходимо авторизоваться.
-    </h1>
+    <div className={styles.general}>
+      <h1>Для оформления подписки на тариф, необходимо авторизоваться.</h1>
+    </div>
   )
 }
 

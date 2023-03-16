@@ -16,3 +16,22 @@
     display: flex;
     justify-content: space-between;
 }
+
+@media screen and (max-width: 1300px) {
+    .top {
+        padding: 0px 10px;
+    }
+}
+
+@media screen and (max-width: 1150px) {
+    .buttom {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 630px) {
+    .general {
+        margin-bottom: 25px;
+    }
+}

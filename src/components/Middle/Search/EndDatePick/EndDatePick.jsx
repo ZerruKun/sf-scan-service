@@ -12,7 +12,7 @@ const EndDatePick = observer(() => {
         <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ruLocale}>
             <Stack spacing={4} sx={{width: "176px"}}>
                 <DatePicker 
-                    label="Выберите дату" 
+                    label="Дата конца" 
                     renderInput={(params) => <TextField {...params} />}
                     value={store.endDate} 
                     minDate={store.startDate} 

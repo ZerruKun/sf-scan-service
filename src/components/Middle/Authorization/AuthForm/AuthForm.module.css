@@ -1,4 +1,5 @@
 .general {
+    position: relative;
     max-width: 429px;
     width: 100%;
     padding: 25px 25px 39px;
@@ -6,6 +7,17 @@
     flex-direction: column;
     border-radius: 10px;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
+}
+
+.lock {
+    position: absolute;
+    top: -60px;
+    left: -30px;
+    width: 75px;
+    height: 90px;
+    background-image: url("../../../../images/authorization/lock.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 .authChoose {
@@ -61,6 +73,7 @@
 
 .submitInput {
     height: 59px;
+    margin-bottom: 15px;
     font-weight: 500;
     font-size: 22px;
     line-height: 27px;
@@ -82,4 +95,70 @@
 
 .submitInput:disabled {
     opacity: 0.7;
+}
+
+.passwordRecovery {
+    margin-bottom: 30px;
+    display: flex;
+    align-self: center;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.02em;
+    text-decoration-line: underline;
+    color: #5970FF;
+}
+
+.socialLabel {
+    margin-bottom: 15px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: 0.02em;
+    color: #949494;
+}
+
+.social {
+    display: flex;
+}
+
+.google,
+.facebook, 
+.yandex {
+    width: 96px;
+    height: 31px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.google,
+.facebook {
+    margin-right: 10px;
+}
+
+.google {
+    background-image: url("../../../../images/authorization/google.svg");
+}
+
+.facebook {
+    background-image: url("../../../../images/authorization/facebook.svg");
+}
+
+.yandex {
+    background-image: url("../../../../images/authorization/yandex.svg");
+}
+
+@media screen and (max-width: 975px) {
+    .general {
+        margin-bottom: 50px;
+    }
+
+    .lock {
+        top: -80px;
+        left: 35%;
+    }
 }

@@ -21,6 +21,7 @@
 
 .source {
     text-decoration: underline;
+    word-break:break-all;
 }
 
 .header {
@@ -57,7 +58,9 @@
 }
 
 .text {
+    max-height: 250px;
     margin-bottom: 32px;
+    overflow: hidden;
 }
 
 .text p {
@@ -95,4 +98,20 @@
     line-height: 19px;
     letter-spacing: 0.02em;
     color: #949494;
+}
+
+@media screen and (max-width: 880px) {
+    .general {
+        width: 100%;
+        margin-bottom: 38px;
+        padding: 19px 30px 35px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .bottomSection a{
+        padding: 14px 19px;
+    }
 }

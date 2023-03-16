@@ -10,9 +10,9 @@ import { observer } from 'mobx-react-lite';
 const StartDatePick = observer(() => {
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ruLocale}>
-            <Stack spacing={4} sx={{width: "176px"}}>
+            <Stack spacing={4} sx={{width: 176}}>
                 <DatePicker 
-                    label="Выберите дату" 
+                    label="Дата начала" 
                     renderInput={(params) => <TextField {...params} />}
                     value={store.startDate} 
                     maxDate={store.endDate}

@@ -3,6 +3,7 @@ import styles from "./AuthForm.module.css"
 import { useForm } from 'react-hook-form'
 import store from '../../../../store/store'
 import { observer } from 'mobx-react-lite'
+import { Link } from 'react-router-dom'
 
 
 const AuthForm = observer(() => {
@@ -28,13 +29,14 @@ const AuthForm = observer(() => {
 
   return (
     <form className={styles.general} onSubmit={handleSubmit(onFormSubmit)}>
+      <div className={styles.lock}></div>
       <div className={styles.authChoose}>
         {/* Выключены специально, так как регистрации в задании не предполагается */}
         <button className={`${styles.button} ${styles.signIn} ${styles.activeButton}`} disabled>Войти</button>
         <button className={`${styles.button} ${styles.signUp}`} disabled>Зарегистрироваться</button>
       </div>
       <label className={styles.label}>
-        {/* Не добавлял маску для телефона, так как не представляю как реализовать проверку в рамках одно поля,
+        {/* Не добавлял маску для телефона, так как не представляю как реализовать проверку в рамках одного поля,
         а добавлять библиотеку и потом по факту не использовать её, не имеет смысла*/}
         Логин или номер телефона:
         <input 
@@ -64,6 +66,14 @@ const AuthForm = observer(() => {
         value="Войти" type="submit" 
         disabled={!isValid}
       />
+      {/* Не ссылкой, потому что нет функционала */}
+      <span className={styles.passwordRecovery}>Восстановить пароль</span>
+      <span className={styles.socialLabel}>Войти через:</span>
+      <div className={styles.social}>
+          <Link className={styles.google} to="https://google.com" target="_blank"></Link>
+          <Link className={styles.facebook} to="https://facebook.com" target="_blank"></Link>
+          <Link className={styles.yandex} to="https://yandex.ru" target="_blank"></Link>
+      </div>
     </form>
   )
 })

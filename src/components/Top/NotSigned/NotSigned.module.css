@@ -25,3 +25,9 @@
     color: #000000;
     background-color: #7CE3E1;
 }
+
+@media screen and (max-width: 765px) {
+    .general {
+        display: none;
+    }
+}

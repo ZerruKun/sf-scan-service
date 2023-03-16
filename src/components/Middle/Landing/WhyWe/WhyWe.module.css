@@ -16,7 +16,7 @@
 
 .nextButton,
 .previosButton {
-    width: 28px;
+    width: 40px;
     height: 40px;
     display: flex;
     flex-shrink: 0;
@@ -29,4 +29,12 @@
 
 .previosButton {
     background-image: url("../../../../images/landing/previos.png");
+}
+
+@media screen and (max-width: 600px) {
+    .general h2 {
+        margin-bottom: 32px;
+        font-size: 28px;
+        line-height: 34px;
+    }
 }
