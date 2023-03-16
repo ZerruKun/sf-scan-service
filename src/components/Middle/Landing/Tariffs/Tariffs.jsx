@@ -13,10 +13,11 @@ const Tariffs = () => {
                     <h3>Beginner</h3>
                     <p>Для небольшого исследования</p>
                 </div>
-                <div className={styles.discriptionImage}></div>
+                <div className={styles.lamp}></div>
             </div>
-            <div className={styles.detailedDiscription}>
-                {/* <span className={styles.tariffNow}>Текущий тариф</span> */}
+            <div className={`${styles.detailedDiscription} ${styles.currentTariff}`}>
+                {/* Не вешал обзёрвер на компонент и не выделял отдельное состояние, плашка активна постоянно */}
+                <span className={styles.tariffNow}>Текущий тариф</span>
                 <div className={styles.price}>
                     <span className={styles.priceNow}>799 ₽</span>
                     <span className={styles.pricePrevios}>1 200 ₽</span>
@@ -37,7 +38,7 @@ const Tariffs = () => {
                     <h3>Pro</h3>
                     <p>Для HR и фрилансеров</p>
                 </div>
-                <div className={styles.discriptionImage}></div>
+                <div className={styles.target}></div>
             </div>
             <div className={styles.detailedDiscription}>
                 <div className={styles.price}>
@@ -60,7 +61,7 @@ const Tariffs = () => {
                     <h3>Business</h3>
                     <p>Для корпоративных клиентов</p>
                 </div>
-                <div className={styles.discriptionImage}></div>
+                <div className={styles.notebook}></div>
             </div>
             <div className={styles.detailedDiscription}>
                 <div className={`${styles.price} ${styles.priceBusiness}`}>
