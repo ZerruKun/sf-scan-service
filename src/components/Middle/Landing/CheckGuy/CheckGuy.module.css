@@ -7,3 +7,10 @@
     background-repeat: no-repeat;
     background-size:cover;
 }
+
+@media screen and (max-width: 610px) {
+    .general {
+        height: 390px;
+        margin-bottom: 65px;
+    }
+}
