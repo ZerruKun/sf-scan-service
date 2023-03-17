@@ -6,7 +6,7 @@ import styles from "./SearchResult.module.css"
 import store from '../../store/store'
 import { observer } from 'mobx-react-lite'
 import { useNavigate } from 'react-router'
-import Loader from '../../components/Other/Loader/Loader'
+import SummaryLoader from '../../components/Other/SummaryLoader/SummaryLoader'
 
 const SearchResult = observer(() => {
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ const SearchResult = observer(() => {
       {store.isSummaryLoading === true ? (
         // Намеренно сделано без "суммарного окна" - так симпатичнее.
         <div className={styles.loaderContainer}>
-          <Loader />
+          <SummaryLoader />
         </div>
       ) : (
         store.isSummaryError === true ? (

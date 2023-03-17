@@ -20,10 +20,6 @@
     align-items: center;
 }
 
-/* .nameList {
-    margin-right: 6px;
-} */
-
 .usedItem:first-of-type,
 .limitItem:first-of-type {
     font-size: 10px;
@@ -47,6 +43,11 @@
     color: #8AC540;
 }
 
+.loaderContainer {
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+}
 
 @media screen and (max-width: 380px) {
     .general {
@@ -79,6 +80,10 @@
 
     .limitItem:last-of-type {
         margin-left: 0px;
+    }
+
+    .loaderContainer {
+        margin-top: 10px;
     }
 
 }

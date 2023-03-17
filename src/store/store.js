@@ -17,6 +17,7 @@ class Store {
   // Инфо по компаниям
 
   companiesInfo = {used: 0, limit: 0};
+  isCompanyInfoLoading = (false);
 
   // Форма поиска 
 
@@ -423,6 +424,10 @@ class Store {
     this.companiesInfo.limit = limit;
   }
 
+  setIsCompanyInfoLoading = (bool) => {
+    this.isCompanyInfoLoading = bool;
+  }
+
   // Сеттеры формы
 
   setInn = (inn) => {
@@ -579,6 +584,7 @@ class Store {
   // Получение информации о лимитах по компаниям
 
   getCompaniesInfo = () => {
+    this.setIsCompanyInfoLoading(true);
     // console.log(this.token);
     axios.get("https://gateway.scan-interfax.ru/api/v1/account/info", {
       headers: {
@@ -590,6 +596,7 @@ class Store {
           response.data.eventFiltersInfo.usedCompanyCount, 
           response.data.eventFiltersInfo.companyLimit
         );
+        this.setIsCompanyInfoLoading(false);
       })
       .catch((err) => {
         console.log(err);
