@@ -1,14 +1,13 @@
-import { observer } from 'mobx-react-lite';
-import React, { useEffect } from 'react'
-import styles from "./CompanyLimit.module.css"
-import store from '../../../store/store';
-import InfoLoader from "../../Other/InfoLoader/InfoLoader"
+import { observer } from "mobx-react-lite";
+import React, { useEffect } from "react";
+import styles from "./CompanyLimit.module.css";
+import store from "../../../store/store";
+import InfoLoader from "../../Other/InfoLoader/InfoLoader";
 
 const CompanyLimit = observer(() => {
-  
-  useEffect (() => {
+  useEffect(() => {
     store.getCompaniesInfo();
-  }, [])
+  }, []);
 
   return (
     <div className={styles.general}>
@@ -29,7 +28,7 @@ const CompanyLimit = observer(() => {
         </div>
       )}
     </div>
-  )
-})
+  );
+});
 
-export default CompanyLimit
+export default CompanyLimit;

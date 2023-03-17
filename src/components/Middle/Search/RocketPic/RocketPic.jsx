@@ -1,10 +1,8 @@
-import React from 'react'
-import styles from "./RocketPic.module.css"
+import React from "react";
+import styles from "./RocketPic.module.css";
 
 const RocketPic = () => {
-  return (
-    <div className={styles.general}></div>
-  )
-}
+  return <div className={styles.general}></div>;
+};
 
-export default RocketPic
+export default RocketPic;

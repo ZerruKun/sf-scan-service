@@ -1,5 +1,5 @@
-import React from 'react'
-import styles from "./Searching.module.css"
+import React from "react";
+import styles from "./Searching.module.css";
 
 const Searching = () => {
   return (
@@ -10,7 +10,7 @@ const Searching = () => {
       </div>
       <div className={styles.shieldGirl}></div>
     </div>
-  )
-}
+  );
+};
 
-export default Searching
+export default Searching;

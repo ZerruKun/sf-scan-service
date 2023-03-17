@@ -1,10 +1,8 @@
-import React from 'react'
-import styles from "./Logo.module.css"
+import React from "react";
+import styles from "./Logo.module.css";
 
 const Logo = () => {
-  return (
-    <div className={styles.general}></div>
-  )
-}
+  return <div className={styles.general}></div>;
+};
 
-export default Logo
+export default Logo;
