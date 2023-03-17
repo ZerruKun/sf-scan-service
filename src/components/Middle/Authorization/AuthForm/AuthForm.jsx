@@ -35,37 +35,54 @@ const AuthForm = observer(() => {
         <button className={`${styles.button} ${styles.signIn} ${styles.activeButton}`} disabled>Войти</button>
         <button className={`${styles.button} ${styles.signUp}`} disabled>Зарегистрироваться</button>
       </div>
-      <label className={styles.label}>
-        {/* Не добавлял маску для телефона, так как не представляю как реализовать проверку в рамках одного поля,
-        а добавлять библиотеку и потом по факту не использовать её, не имеет смысла*/}
-        Логин или номер телефона:
-        <input 
-          className={styles.textInput} 
-          type="text"
-          {...register("login", {
-            required: true, 
-            minLength: 5, 
-          })}
-        />
-      </label>
-      <span className={styles.errorMessage}>{errors?.login && <p>Введите корректные данные</p>}</span>
-      <label className={styles.label}>
-        Пароль:
-        <input 
-          className={styles.textInput} 
-          type="password" 
-          {...register("password", {
-          required: true,
-          minLength: 5, 
-          })}
-        />
-      </label>
-      <span className={styles.errorMessage}>{errors?.password && <p>Неверный пароль</p>}</span>
-      <input 
-        className={styles.submitInput} 
-        value="Войти" type="submit" 
-        disabled={!isValid}
-      />
+          {store.isAuthError ? (
+            <div className={styles.authError}>
+              <span>Неверный логин или пароль!</span>
+              <button onClick={() => {store.setIsAuthLoading(false); store.setIsAuthError(false);}}>Попробовать снова</button>
+            </div>
+          ) : (
+            <>
+            <label className={styles.label}>
+          {/* Не добавлял маску для телефона, так как не представляю как реализовать проверку в рамках одного поля,
+          а добавлять библиотеку и потом по факту не использовать её, не имеет смысла*/}
+          Логин или номер телефона:
+          <input 
+            className={styles.textInput} 
+            type="text"
+            {...register("login", {
+              required: true, 
+              minLength: 5, 
+            })}
+          />
+          </label>
+          <span className={styles.errorMessage}>{errors?.login && <p>Введите корректные данные</p>}</span>
+          <label className={styles.label}>
+            Пароль:
+            <input 
+              className={styles.textInput} 
+              type="password" 
+              {...register("password", {
+              required: true,
+              minLength: 5, 
+              })}
+            />
+          </label>
+          <span className={styles.errorMessage}>{errors?.password && <p>Неверный пароль</p>}</span>
+          {store.isAuthLoading ? (
+            <input 
+              className={styles.submitInput} 
+              value="Проверка..." type="submit" 
+              disabled={true}
+            />
+          ) : (
+            <input 
+              className={styles.submitInput} 
+              value="Войти" type="submit" 
+              disabled={!isValid}
+            />
+          )}
+          </>
+          )}
       {/* Не ссылкой, потому что нет функционала */}
       <span className={styles.passwordRecovery}>Восстановить пароль</span>
       <span className={styles.socialLabel}>Войти через:</span>

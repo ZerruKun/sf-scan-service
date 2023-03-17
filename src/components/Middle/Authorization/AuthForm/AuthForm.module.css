@@ -97,6 +97,33 @@
     opacity: 0.7;
 }
 
+.authError {
+    min-height: 200px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.authError span {
+    margin-bottom: 40px;
+    font-size: 18px;
+    line-height: 20px;
+    text-align: center;
+    color: #FF5959;
+}
+
+.authError button {
+    height: 59px;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 27px;
+    border-radius: 5px;
+    border: none;
+    color: #FFFFFF;
+    background: #5970FF;
+}
+
 .passwordRecovery {
     margin-bottom: 30px;
     display: flex;

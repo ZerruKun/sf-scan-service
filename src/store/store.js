@@ -10,8 +10,9 @@ class Store {
 
   login = "";
   password = "";
-  isAuthError = false;
   token = "";
+  isAuthLoading = false;
+  isAuthError = false;
 
   // Инфо по компаниям
 
@@ -405,9 +406,13 @@ class Store {
     this.password = password;
   }
 
+  setIsAuthLoading = (bool) => {
+    this.isAuthLoading = bool;
+  }
+
   setIsAuthError = (bool) => {
     this.isAuthError = bool;
-  }
+  };
 
   // Сеттер лимитов
 
@@ -517,6 +522,7 @@ class Store {
   // Авторизация
 
   getToken = () => {
+    this.setIsAuthLoading(true);
     axios
     .post("https://gateway.scan-interfax.ru/api/v1/account/login", {
         login : `${this.login}`,
@@ -531,11 +537,13 @@ class Store {
           // Ключ действителен день, реализовал иначе.
           let currentDate = new Date();
           localStorage.setItem("expire", currentDate.setDate(currentDate.getDate() + 1));
+          this.setIsAuthLoading(false);
         }
-        console.log(response.data);
     })
     .catch((err) => {
-      console.log(err)
+      console.log(err.code);
+      this.setIsAuthError(true);
+      console.log(this.isAuthError);
       this.setLogin("");
       this.setPassword("");
     });
@@ -714,7 +722,7 @@ class Store {
         return result.push(el.encodedId);
       })
       this.setPublishIds(result);
-      this.publishIds.map((el) => {console.log(el)});
+      // this.publishIds.map((el) => {console.log(el)});
     })
     .catch((err) => {
       console.log(err);
