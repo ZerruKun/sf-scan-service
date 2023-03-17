@@ -3,8 +3,18 @@ import styles from "./Summary.module.css"
 import DateResult from "../DateResult/DateResult"
 import { observer } from 'mobx-react-lite'
 import store from '../../../../store/store'
+import { useNavigate } from 'react-router'
 
 const Summary = observer(() => {
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(store.isSummaryAllowed === false) {
+      navigate("/search");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   
   // Внутренние состояния для слайдера
 
@@ -64,10 +74,13 @@ const Summary = observer(() => {
 
   useEffect(() => {
     if(store.summaryResults.status === 200 && store.summaryResults.data !== []) {
+      console.log("Я сработал!")
       store.setSummaryDates(store.summaryResults.data.data[0].data.map((el) => el.date.substring(0, 10).split("-").join(".")));
       store.setSummaryAll(store.summaryResults.data.data[0].data.map((el) => el.value));
       store.setSummaryRisks(store.summaryResults.data.data[1].data.map((el) => el.value));
       store.setSummaryArticles(store.summaryAll.reduce((a, b) => {return a + b;}) + store.summaryRisks.reduce((a, b) => {return a + b;}));
+    } else {
+      console.log("Я обосрался!")
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [store.summaryResults])
@@ -118,7 +131,7 @@ const Summary = observer(() => {
         </div>
         </>
       ) : (
-        <div>Bub!</div>
+        <div>Заглушка на случай иного решения</div>
       )}
     </div>
   )

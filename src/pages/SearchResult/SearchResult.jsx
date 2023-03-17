@@ -6,6 +6,7 @@ import styles from "./SearchResult.module.css"
 import store from '../../store/store'
 import { observer } from 'mobx-react-lite'
 import { useNavigate } from 'react-router'
+import Loader from '../../components/Other/Loader/Loader'
 
 const SearchResult = observer(() => {
   const navigate = useNavigate();
@@ -21,8 +22,26 @@ const SearchResult = observer(() => {
   return (
     <div className={styles.general}>
       <Searching />
-      <Summary />
-      <Documents />
+      {store.isSummaryLoading === true ? (
+        // Намеренно сделано без "суммарного окна" - так симпатичнее.
+        <div className={styles.loaderContainer}>
+          <Loader />
+        </div>
+      ) : (
+        store.isSummaryError === true ? (
+          <div className={styles.noResults}>
+            <p>Ваши статьи в другом замке!</p>
+            <p>Попробуйте изменить условия запроса.</p>
+            <button onClick={() => {store.setIsSummaryAllowed(false); navigate("/search");}}>Попробовать снова</button>
+          </div>
+        ) : (
+          <>
+          <Summary />
+          <Documents />
+        </>
+        )
+      )}
+
     </div>
   )
 })

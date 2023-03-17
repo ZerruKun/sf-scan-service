@@ -37,18 +37,20 @@ class Store {
     isDigest: true,
   }
 
-  // Cуммарны результат поиска
+  // Cуммарные результат поиска
 
   summaryDates = [];
   summaryAll = [];
   summaryRisks = [];
   summaryArticles = 0;
   summaryResults = {};
+  isSummaryAllowed = false;
+  isSummaryLoading = false;
+  isSummaryError = false;
 
   // ID публикаций
 
   publishIds = {};
-
   publishes = [];
 
   // Стейт завершение
@@ -507,13 +509,26 @@ class Store {
     this.summaryArticles = articles;
   }
 
-  // Сеттеры для ID публикаций
+  setIsSummaryAllowed = (bool) => {
+    this.isSummaryAllowed = bool;
+  }
+
+  setIsSummaryLoading = (bool) => {
+    this.isSummaryLoading = bool;
+  }
+
+  setIsSummaryError = (bool) => {
+    this.isSummaryError = bool;
+  }
+
+
+  // Сеттер для ID публикаций
 
   setPublishIds = (ids) => {
     this.publishIds = ids;
   }
 
-  /////////
+  // Cеттер для самих публикаций
 
   setPublish = (data) => {
     this.publishes = data;
@@ -584,6 +599,7 @@ class Store {
   // Запрос сводки на конкретные даты
 
   getHistogram = () => {
+    this.setIsSummaryLoading(true);
     // Для теста
     // console.log("ИНН: " + this.inn);
     // console.log("Тональность: " + this.tonality);
@@ -647,8 +663,14 @@ class Store {
       histogramTypes: ["totalDocuments", "riskFactors"],
     })
     .then((response) => {
-      // console.log(response);
+      console.log(response);
       this.setSummaryResults(response);
+      if(this.summaryResults.status === 200 && this.summaryResults.data !== [] && this.summaryResults.data.data[0] !== undefined) {
+        this.setIsSummaryLoading(false);
+      } else {
+        this.setIsSummaryError(true);
+        this.setIsSummaryLoading(false);
+      }
     })
     .catch((err) => {
       console.log(err);
@@ -763,7 +785,7 @@ class Store {
       })
   }
 
-  // Интерсептор по рекомендации ментора
+  // Интерсептор для того, чтобы херед не путался с датой (по рекомендации ментора)
   
   setToken = (token) => {
     axios.interceptors.request.use(

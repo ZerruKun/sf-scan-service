@@ -12,6 +12,10 @@ const Search = observer(() => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    store.setIsSummaryAllowed(false);
+  }, [])
+
+  useEffect(() => {
     store.checkToken();
     if(store.token === "") {
       navigate("/auth");

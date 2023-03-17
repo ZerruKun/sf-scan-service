@@ -24,8 +24,9 @@ const SearchingForm = observer(() => {
     // console.log("Сабмит формы");
     // console.log("Инн в дате формы: " + data.inn);
     // console.log("Лимит в дате формы: " + data.limit);
+    store.setIsSummaryAllowed(true);
     store.setInn(data.inn);
-    store.setTonality("any"); // Для теста
+    // store.setTonality("any"); // Для теста
     store.setLimit(data.limit);
     // console.log("Поиск, обязательные данные, которые из стора");
     store.getHistogram(); 
