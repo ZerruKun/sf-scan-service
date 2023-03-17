@@ -1,8 +1,8 @@
-import React from 'react'
-import Burger from '../Burger/Burger'
-import Interaction from '../Interaction/Interaction'
-import Logo from '../Logo/Logo'
-import styles from "./Header.module.css"
+import React from "react";
+import Burger from "../Burger/Burger";
+import Interaction from "../Interaction/Interaction";
+import Logo from "../Logo/Logo";
+import styles from "./Header.module.css";
 
 const Header = () => {
   return (
@@ -11,7 +11,7 @@ const Header = () => {
       <Interaction />
       <Burger />
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

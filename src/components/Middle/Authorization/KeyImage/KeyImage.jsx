@@ -1,10 +1,8 @@
-import React from 'react'
-import styles from "./KeyImage.module.css"
+import React from "react";
+import styles from "./KeyImage.module.css";
 
 const KeyImage = () => {
-  return (
-    <div className={styles.general}></div>
-  )
-}
+  return <div className={styles.general}></div>;
+};
 
-export default KeyImage
+export default KeyImage;

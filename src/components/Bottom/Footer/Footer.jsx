@@ -1,7 +1,7 @@
-import React from 'react'
-import FooterInfo from '../FooterInfo/FooterInfo'
-import FooterLogo from '../FooterLogo/FooterLogo'
-import styles from "./Footer.module.css"
+import React from "react";
+import FooterInfo from "../FooterInfo/FooterInfo";
+import FooterLogo from "../FooterLogo/FooterLogo";
+import styles from "./Footer.module.css";
 
 const Footer = () => {
   return (
@@ -11,7 +11,7 @@ const Footer = () => {
         <FooterInfo />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

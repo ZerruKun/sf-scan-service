@@ -37,6 +37,10 @@
     background-color: #5970FF;
 }
 
+.title button:hover {
+    opacity: 0.9;
+}
+
 .image {
     max-width: 575px;
     width: 100%;

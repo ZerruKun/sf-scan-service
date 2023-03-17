@@ -1,5 +1,5 @@
-import React from 'react'
-import styles from "./FooterInfo.module.css"
+import React from "react";
+import styles from "./FooterInfo.module.css";
 
 const FooterInfo = () => {
   return (
@@ -11,7 +11,7 @@ const FooterInfo = () => {
       </div>
       <span className={styles.copyright}>Copyright. 2022</span>
     </div>
-  )
-}
+  );
+};
 
-export default FooterInfo
+export default FooterInfo;
