@@ -27,7 +27,8 @@ const Burger = observer(() => {
         </div>
         <nav>
           <ul className={styles.navList}>
-            <li className={styles.navItem}>Главная</li>
+            {/* Только главная, для остальных нет разделов */}
+            <li className={styles.navItem}><Link to="/">Главная</Link></li>
             <li className={styles.navItem}>Тарифы</li>
             <li className={styles.navItem}>FAQ</li>
           </ul>
